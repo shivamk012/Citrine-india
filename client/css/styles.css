@@ -1,0 +1,44 @@
+body { 
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+}
+
+#Announcement {
+    background-color: #3a3a3a;
+    text-align: center;
+    padding-top: .5%;
+    padding-bottom: .5%;
+}
+
+#Navigation {
+    text-align: center;
+    background-color: #fff;
+    padding-bottom: 50px;
+}
+
+.navbar {
+    padding: 20px 0 10px;
+}
+
+
+.navbar-brand {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 2rem;
+}
+
+.nav-item {
+    padding: 0 20px;
+}
+
+.logo {
+    padding-left: 850px;
+}
+
+.nav-item-home {
+    text-decoration: underline;
+}
+
+.nav-item:hover {
+    text-decoration: underline;
+}
