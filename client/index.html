@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="css/styles.css">
 
     <!-- fontawesome -->
-    <script src="https://kit.fontawesome.com/d6eeb13685.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
     <!-- JS Query -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -47,7 +47,7 @@
             <form class="form-inline my-2 my-lg-0 ml-auto">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
-              </form>
+            </form>
         </nav>
 
         <nav class="navbar navbar-expand-lg navbar-light">
@@ -88,13 +88,63 @@
 
         <div id="testimoinals-examples" class="carousel slide" data-ride="false">
 
+            <!-- Slides-Bars -->
+            <ol class="carousel-indicators ">
+                <li data-target="#testimoinals-examples" data-slide-to="0" class="active"></li>
+                <li data-target="#testimoinals-examples" data-slide-to="1"></li>
+                <li data-target="#testimoinals-examples" data-slide-to="2"></li>
+                <li data-target="#testimoinals-examples" data-slide-to="3"></li>
+                <li data-target="#testimoinals-examples" data-slide-to="4"></li>
+              </ol>
+
             <div class="carousel-inner">
-                <img src="testinomial-ex1.jpeg" alt="">
-                <div class="carousel-item active">
-                    <h3>ICE BLUE</h3>
-                    <p>EARNINGS</p>
-                    <button class="btn btn-dark"></button>
-                </div>
+                    <div class="carousel-img carousel-item active">
+                            <img class="d-block w-100" src="images/testinomial-ex.jpeg" alt="">
+                            
+                            <div class="testinomial-text carousel-caption d-none d-md-block">
+                                <h2>ANTIQUES</h2>
+                                <p>EARINGS</p>
+                                <a class="btn btn-dark" href="" role="button">SHOP NOW</a>
+                            </div>
+                    </div>
+                    <div class="carousel-img carousel-item">
+                            <img class="d-block w-100" src="images/testinomial-ex2.jpeg" alt="">
+                            
+                            <div class="carousel-caption d-none d-md-block">
+                                <h2>ANTIQUES</h2>
+                                <p>EARINGS</p>
+                                <a class="btn btn-dark" href="" role="button">SHOP NOW</a>
+                            </div>
+                    </div>
+                    <div class="carousel-img carousel-item">
+                            <img class="d-block w-100" src="images/testinomial-ex3.jpeg" alt="">
+                            
+                            <div class="carousel-caption d-none d-md-block">
+                                <h2>ANTIQUES</h2>
+                                <p>EARINGS</p>
+                                <a class="btn btn-dark" href="" role="button">SHOP NOW</a>
+                            </div>
+                    </div>
+                    <div class="carousel-img carousel-item">
+                            <img class="d-block w-100" src="images/testinomial-ex4.jpeg" alt="">
+                            
+                            <div class="carousel-caption d-none d-md-block">
+                                <h2>ANTIQUES</h2>
+                                <p>EARINGS</p>
+                                <a class="btn btn-dark" href="" role="button">SHOP NOW</a>
+                            </div>
+                    </div>
+                    <div class="carousel-img carousel-item">
+                            <img class="d-block w-100" src="images/testinomial-ex5.jpeg" alt="">
+                            
+                            <div class="carousel-caption d-none d-md-block">
+                                <h2>ANTIQUES</h2>
+                                <p>EARINGS</p>
+                                <a class="btn btn-dark" href="" role="button">SHOP NOW</a>
+                            </div>
+                    </div>
+                    
+            </div>
                 
 
               <!-- Slides-button -->
@@ -102,12 +152,21 @@
                 <span class="carousel-control-prev-icon"></span>
               </a>
               <a class="carousel-control-next" href="#testimoinals-examples" role="button" data-slide="next">
-                <span class="carousel-control-next-icon""></span>
+                <span class="carousel-control-next-icon"></span>
               </a>
 
         </div>
 
     </section>
-    
+
+    <!-- Footer-Section -->
+    <section id="Footer">
+        <div>
+            <p class="copyright">© 2021, Citrine India by Rishi and Pulkit</p>
+            <a href=""><i class="footer-icon fab fa-facebook footer-icon"></i></a>
+            <a href=""><i class="footer-icon fab fa-instagram  footer-icon"></i></a>
+        </div>
+    </section>
+
 </body>
 </html>
