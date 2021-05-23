@@ -4,7 +4,6 @@ body {
     color: #fff;
 }
 
-/* Announcemnt-Section */
 #Announcement {
     background-color: #3a3a3a;
     text-align: center;
@@ -12,7 +11,6 @@ body {
     padding-bottom: .5%;
 }
 
-/* Navigation-Section */
 #Navigation {
     text-align: center;
     background-color: #fff;
@@ -34,7 +32,7 @@ body {
 }
 
 .logo {
-    padding-left: 43%;
+    padding-left: 850px;
 }
 
 .nav-item-home {
@@ -43,44 +41,4 @@ body {
 
 .nav-item:hover {
     text-decoration: underline;
-}
-
-/* Testimonial-Section */
-
-.Testimonials {
-    text-align: center;
-}
-
-.carousel-item {
-    font-size: 1.5rem;
-}
-
-.carousel-img {
-    height: 500px;
-}
-
-.testinomial-text {
-    margin-bottom: 20px;
-}
-
-/* Footer-Section */
-
-#Footer {
-    background-color: #3a3a3a;
-    text-align: center;
-    padding-top: 3%;
-    padding-bottom: 3%;
-}
-
-.copyright {
-    font-size: .75rem;
-}
-
-.footer-icon {
-    padding-right: 10px;
-    padding-left: 10px;
-}
-
-#Footer a {
-    color: #fff;
 }
