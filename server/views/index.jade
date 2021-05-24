@@ -1,0 +1,105 @@
+doctype html
+head
+  //-   Character Encoding
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  //-   Google-Fonts
+  link(rel='preconnect' href='https://fonts.gstatic.com')
+  link(href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Source+Sans+Pro&family=Ubuntu&display=swap' rel='stylesheet')
+  //-    Styles
+  link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous')
+  link(rel='stylesheet' href='/styles/styles.css')
+  //-  fontawesome
+  
+  link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.15.3/css/all.css' integrity='sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk' crossorigin='anonymous')
+  
+  //-JS Query
+
+  script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous')
+  script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous')
+  title Document
+    //-   Announcement Section
+section#Announcement
+  .container-fluid
+    h4 Announce Something here
+    //- Navigation-Section
+section#Navigation
+  nav.navbar.navbar-expand-lg.navbar-light
+    a.navbar-brand.logo(href='') CITRINE INDIA
+    form.form-inline.my-2.my-lg-0.ml-auto
+      input.form-control.mr-sm-2(type='search' placeholder='Search' aria-label='Search')
+      button.btn.btn-outline-dark.my-2.my-sm-0(type='submit') Search
+  nav.navbar.navbar-expand-lg.navbar-light
+    ul.navbar-nav.ml-auto.mr-auto
+      li.nav-item
+        a.nav-link.nav-item-home(href='') HOME
+      li.nav-item
+        a.nav-link(href='') COLLECTIONS
+      li.nav-item
+        a.nav-link(href='') NECKLES
+      li.nav-item
+        a.nav-link(href='') EARINGS
+      li.nav-item
+        a.nav-link(href='') HANDCUFF
+      li.nav-item
+        a.nav-link(href='') RING
+      li.nav-item
+        a.nav-link(href='') SALE
+      li.nav-item
+        a.nav-link(href='') CONTACT US
+    //- Testimonials-Section
+section#Testimonials
+  #testimoinals-examples.carousel.slide(data-ride='false')
+    //-  Slides-Bars
+    ol.carousel-indicators
+      li.active(data-target='#testimoinals-examples' data-slide-to='0')
+      li(data-target='#testimoinals-examples' data-slide-to='1')
+      li(data-target='#testimoinals-examples' data-slide-to='2')
+      li(data-target='#testimoinals-examples' data-slide-to='3')
+      li(data-target='#testimoinals-examples' data-slide-to='4')
+    .carousel-inner
+      .carousel-img.carousel-item.active
+        img.d-block.w-100(src='/images/testinomial-ex.jpeg' alt='')
+        .testinomial-text.carousel-caption.d-none.d-md-block
+          h2 ANTIQUES
+          p EARINGS
+          a.btn.btn-dark(href='' role='button') SHOP NOW
+      .carousel-img.carousel-item
+        img.d-block.w-100(src='/images/testinomial-ex2.jpeg' alt='')
+        .carousel-caption.d-none.d-md-block
+          h2 ANTIQUES
+          p EARINGS
+          a.btn.btn-dark(href='' role='button') SHOP NOW
+      .carousel-img.carousel-item
+        img.d-block.w-100(src='/images/testinomial-ex3.jpeg' alt='')
+        .carousel-caption.d-none.d-md-block
+          h2 ANTIQUES
+          p EARINGS
+          a.btn.btn-dark(href='' role='button') SHOP NOW
+      .carousel-img.carousel-item
+        img.d-block.w-100(src='/images/testinomial-ex4.jpeg' alt='')
+        .carousel-caption.d-none.d-md-block
+          h2 ANTIQUES
+          p EARINGS
+          a.btn.btn-dark(href='' role='button') SHOP NOW
+      .carousel-img.carousel-item
+        img.d-block.w-100(src='/images/testinomial-ex5.jpeg' alt='')
+        .carousel-caption.d-none.d-md-block
+          h2 ANTIQUES
+          p EARINGS
+          a.btn.btn-dark(href='' role='button') SHOP NOW
+    //-  Slides-button
+    a.carousel-control-prev(href='#testimoinals-examples' role='button' data-slide='prev')
+      span.carousel-control-prev-icon
+    a.carousel-control-next(href='#testimoinals-examples' role='button' data-slide='next')
+      span.carousel-control-next-icon
+//-  Footer-Section
+section#Footer
+  div
+    p.copyright &copy; 2021, Citrine India by Rishi and Pulkit
+    a(href='')
+      i.footer-icon.fab.fa-facebook.footer-icon
+    a(href='')
+      i.footer-icon.fab.fa-instagram.footer-icon
