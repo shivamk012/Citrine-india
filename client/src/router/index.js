@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import SignUp from '../views/SignUp.vue'
+import admin from "./admin"
+
 
 Vue.use(VueRouter)
 
@@ -9,7 +12,13 @@ Vue.use(VueRouter)
     path: '/',
     name: 'Home',
     component: Home
-  }
+  },
+  {
+    path: '/register',
+    name: 'signUp',
+    component: SignUp
+  },
+  ...admin
 //   {
 //     path: '/songs/create',
 //     name: 'create-songs',

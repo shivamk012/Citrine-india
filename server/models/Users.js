@@ -21,9 +21,9 @@ const UserSchema = new Schema({
     enum: ["admin", "customer"],
     default: "student",
   },
-  created: Date,
-  cart: [String], // Storing only the ids of the products purchased.
-  previousPurchase: [String],
+  created:{ type: Date, default: Date.now },
+  cart: [{productId:String, count:Number}], // Storing only the ids of the products purchased.
+  previousPurchase: [{productId:String, count:Number}],
 })
 
 const User = model("User", UserSchema);

@@ -1,69 +1,93 @@
 <template>
-  <v-card>
+
+
+  <div class="header">
+
     <v-toolbar
       color="white"
+      dark
+      height="100px"
+      fixed
       flat
     >
-      <v-app-bar-nav-icon/>
-
-      <v-spacer/>
-
-      <v-toolbar-title class="headline font-weight-bold">CITRINE INDIA</v-toolbar-title>
-
-      <v-spacer/>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-
-      <template v-slot:extension>
-        <v-tabs
-          v-model="model"
-          centered
-          slider-color="yellow"
+      <v-toolbar-title class="black--text logo">
+        CITRINE-INDIA
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-btn
+          depressed flat
+          color="white"
+          class="black--text"
+          @click="navigateTo({
+            name: 'signUp'
+          })"
         >
-          <v-tab
-            v-for="i in 3"
-            :key="i"
-            :href="`#tab-${i}`"
-          >
-            Item {{ i }}  
-          </v-tab>
-        </v-tabs>
-      </template>
+          Sign Up
+        </v-btn>
+        <v-btn
+          depressed flat
+          color="white"
+          class="black--text"
+        >
+          Browse
+        </v-btn>
+        <v-btn
+          depressed light
+          color="white"
+        >
+          Log Out 
+        </v-btn>
+        <v-btn
+          depressed light
+          color="white"
+        >
+          Log Out 
+        </v-btn>
+        <v-btn
+          depressed light
+          color="white"
+        >
+          Log Out 
+        </v-btn>
+        <v-btn
+          depressed light
+          color="white"
+        >
+          Log Out 
+        </v-btn>
+      </v-toolbar-items>
     </v-toolbar>
+    
+  </div>
 
-    <v-tabs-items v-model="model">
-      <v-tab-item
-        v-for="i in 3"
-        :key="i"
-        :value="`tab-${i}`"
-      >
-        <v-card class="root" flat >
-          <v-card-text v-text="text"></v-card-text>
-        </v-card>
-      </v-tab-item>
-    </v-tabs-items>
-  </v-card>
+
 </template>
 
 <script>
   export default {
-    data () {
-      return {
-        model: 'tab-2',
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      }
-    },
+    methods: {
+      navigateTo (route) {
+        this.$router.push(route)
+      },
+    }
   }
 </script>
 
+
+
+
 <style scoped>
-/* .root:hover{
- 
-} */
+
+
+  .header{
+      font-family: Montserrat;
+    }
+
+  .logo{
+    font-family: Ubuntu;
+    font-size: 1.5rem;
+  }
+
+
 </style>
