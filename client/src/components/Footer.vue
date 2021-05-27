@@ -5,7 +5,6 @@
     color="#3a3a3a"
     padless
     class="footer"
-    fixed
   >
     <v-row
       justify="center"
