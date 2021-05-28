@@ -2,7 +2,7 @@
   <v-card flat height="100vh">
   <v-divider></v-divider>
     <!-- <slot name="action"/> -->
-    <v-col class="text-center">
+    <v-col>
       <slot>No slot content defined</slot> 
     </v-col>
     <v-navigation-drawer

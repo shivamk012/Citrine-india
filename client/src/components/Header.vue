@@ -16,6 +16,7 @@
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn
+          v-if="!$store.state.isUserLoggedin"
           depressed flat
           color="white"
           class="black--text"
@@ -33,28 +34,20 @@
           Browse
         </v-btn>
         <v-btn
+          v-if="$store.state.isUserLoggedin"
           depressed light
           color="white"
+          @click="logout()"
         >
           Log Out 
         </v-btn>
         <v-btn
+          v-if="!$store.state.isUserLoggedin"
           depressed light
           color="white"
+          @click="navigateTo({name:'login'})"
         >
-          Log Out 
-        </v-btn>
-        <v-btn
-          depressed light
-          color="white"
-        >
-          Log Out 
-        </v-btn>
-        <v-btn
-          depressed light
-          color="white"
-        >
-          Log Out 
+          Login
         </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -70,6 +63,11 @@
       navigateTo (route) {
         this.$router.push(route)
       },
+      logout(){
+        this.$store.dispatch('setToken', null)
+        this.$store.dispatch('setUser', null)
+        this.$router.push({name: 'home'})
+      }
     }
   }
 </script>

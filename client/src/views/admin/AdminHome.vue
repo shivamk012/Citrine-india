@@ -1,6 +1,6 @@
 <template>
   <admin>
-    <p>Admin Home page</p>
+    <p class="text-centered">Admin Home page</p>
   </admin>
 </template>
 

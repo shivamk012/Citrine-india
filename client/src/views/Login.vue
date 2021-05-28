@@ -43,8 +43,8 @@
          Google
       </v-btn>
       <div>
-        <p>Alerady have a account? </p>
-        <a @click="navigateTo({name:'login'})">Login</a>
+        <p>Don't have a account? </p>
+        <a @click="navigateTo({name:'signUp'})">Sign Up</a>
       </div>
     </div>
   </v-card>
@@ -63,7 +63,7 @@ export default {
           // on success do something
           console.log('GoogleUser', GoogleUser)
           const id_token = GoogleUser.getAuthResponse().id_token;
-          const response = (await AuthenticationServices.register(id_token)).data;
+          const response = (await AuthenticationServices.login(id_token)).data
           this.$store.dispatch('setToken', response.token)
           this.$store.dispatch('setUser', response.user)
           this.$router.push({name:'home'})
@@ -73,7 +73,7 @@ export default {
         })
     },
     navigateTo(route){
-      this.$router.push(route)
+        this.$router.push(route)
     }
   },
   data () {
