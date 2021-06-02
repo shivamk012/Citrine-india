@@ -1,8 +1,5 @@
 <template>
-
-
   <div class="header">
-
     <v-toolbar
       color="white"
       dark
@@ -49,12 +46,17 @@
         >
           Login
         </v-btn>
+        <v-btn
+          v-if="$store.state.isAdmin"
+          depressed light
+          color="white"
+          @click="navigateTo({name:'adminHome'})"
+        >
+          Admin
+        </v-btn>
       </v-toolbar-items>
     </v-toolbar>
-    
   </div>
-
-
 </template>
 
 <script>
@@ -66,7 +68,7 @@
       logout(){
         this.$store.dispatch('setToken', null)
         this.$store.dispatch('setUser', null)
-        this.$router.push({name: 'home'})
+        this.$router.push({name:'home'})
       }
     }
   }
@@ -76,16 +78,11 @@
 
 
 <style scoped>
-
-
   .header{
-      font-family: Montserrat;
-    }
-
+    font-family: Montserrat;
+  }
   .logo{
     font-family: Ubuntu;
     font-size: 1.5rem;
   }
-
-
 </style>

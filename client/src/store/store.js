@@ -21,6 +21,7 @@ export default new Vuex.Store({
                 state.isUserLoggedin = true
             } else{
                 state.isUserLoggedin = false
+                state.isAdmin = false
             }
         },
         setUser (state, user) {

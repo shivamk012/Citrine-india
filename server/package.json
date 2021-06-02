@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "lint": "./node_modules/.bin/eslint **/*.js",
+    "seed": "node ./seed"
+  },
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
@@ -10,12 +15,10 @@
     "google-auth-library": "^7.1.0",
     "jade": "^1.11.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.12.10"
+    "mongoose": "^5.12.10",
+    "nodemon": "^2.0.7"
   },
   "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "author": "Rish",
   "license": "ISC"
 }

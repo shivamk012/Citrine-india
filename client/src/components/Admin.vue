@@ -2,57 +2,65 @@
   <v-card flat height="100vh">
   <v-divider></v-divider>
     <!-- <slot name="action"/> -->
-    <v-col>
-      <slot>No slot content defined</slot> 
-    </v-col>
-    <v-navigation-drawer
-    v-model="drawer"
-      absolute
-      permanent
-      right
-      :mini-variant.sync="mini"
-    >
-      <template v-slot:prepend>
-        <v-divider></v-divider>
-        <v-list-item two-line>
-          <v-list-item-avatar>
-            <img src="https://randomuser.me/api/portraits/women/81.jpg">
-          </v-list-item-avatar>
-
-          <v-list-item-content>
-            <v-list-item-title>Jane Smith</v-list-item-title>
-            <v-list-item-subtitle>Logged In</v-list-item-subtitle>
-          </v-list-item-content>
-          <v-btn
-            icon
-            @click.stop="mini = !mini"
-          >
-            <v-icon>mdi-chevron-right</v-icon>
-          </v-btn>
-        </v-list-item>
-      </template>
-
-      <v-divider></v-divider>
-
-      <v-list dense>
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          link
-          @click="navigateTo({
-            name: item.name
-          })"
+    <v-row>
+      <v-col
+        cols="10"
+      >
+        <slot>No slot content defined</slot> 
+      </v-col>
+      <v-col
+        cols="4"  
+      >
+        <v-navigation-drawer
+          v-model="drawer"
+          absolute
+          permanent
+          right
+          :mini-variant.sync="mini"
         >
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
+          <template v-slot:prepend>
+            <v-divider></v-divider>
+            <v-list-item two-line>
+              <v-list-item-avatar>
+                <img src="https://randomuser.me/api/portraits/women/81.jpg">
+              </v-list-item-avatar>
 
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+              <v-list-item-content>
+                <v-list-item-title>Jane Smith</v-list-item-title>
+                <v-list-item-subtitle>Logged In</v-list-item-subtitle>
+              </v-list-item-content>
+              <v-btn
+                icon
+                @click.stop="mini = !mini"
+              >
+                <v-icon>mdi-chevron-right</v-icon>
+              </v-btn>
+            </v-list-item>
+          </template>
+
+          <v-divider></v-divider>
+
+          <v-list dense>
+            <v-list-item
+              v-for="item in items"
+              :key="item.title"
+              link
+              @click="navigateTo({
+                name: item.name
+              })"
+            >
+              <v-list-item-icon>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-navigation-drawer>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
@@ -63,12 +71,12 @@
       return {
         drawer: true,
         items: [
-          { title: 'Home', icon: 'mdi-home-city', name:'adminHome'},
-          { title: 'My Account', icon: 'mdi-account', name:'adminAccount'},
-          { title: 'Users', icon: 'mdi-account-group-outline', name:'adminUser'},
-          { title: 'Catalog', icon: 'mdi-folder-open', name:'adminCatalog'},
+          { title: 'Home', icon: 'mdi-home-city', name:'adminHome', subItems:[{title:'Mens'}, {title:'Mens'}]},
+          { title: 'My Account', icon: 'mdi-account', name:'adminAccount', subItems:[{title:'Mens'}, {title:'Mens'}]},
+          { title: 'Users', icon: 'mdi-account-group-outline', name:'adminUser', subItems:[{title:'Mens'}, {title:'Mens'}]},
+          { title: 'Catalog', icon: 'mdi-folder-open', name:'adminCatalog', subItems:[{title:'Mens'}, {title:'Ladies'}, {title:'Kids'}]},
         ],
-        mini: false,
+        mini:false,
       }
     },
     methods: {

@@ -2,6 +2,7 @@
 // Admin Related routes
 import AdminHome from '../views/admin/AdminHome.vue'
 import AdminUser from '../views/admin/AdminUser.vue'
+import AdminCatalog from '../views/admin/AdminCatalog.vue'
 
 export default [
   {
@@ -15,6 +16,11 @@ export default [
     path: '/admin/users',
     name: 'adminUser',
     component: AdminUser
-  },    
+  },
+  {
+    path: '/admin/catalog',
+    name: 'adminCatalog',
+    component: AdminCatalog,
+  }, 
 ]
 
