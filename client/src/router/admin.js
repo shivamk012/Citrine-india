@@ -3,6 +3,7 @@
 import AdminHome from '../views/admin/AdminHome.vue'
 import AdminUser from '../views/admin/AdminUser.vue'
 import AdminCatalog from '../views/admin/AdminCatalog.vue'
+import AdminCreate from '../views/admin/AdminCreate.vue'
 
 export default [
   {
@@ -21,6 +22,11 @@ export default [
     path: '/admin/catalog',
     name: 'adminCatalog',
     component: AdminCatalog,
+  }, 
+  {
+    path: '/admin/catalog/create',
+    name: 'adminCreate',
+    component: AdminCreate,
   }, 
 ]
 

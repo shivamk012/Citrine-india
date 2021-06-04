@@ -1,15 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors')
-
+const bodyParser = require('body-parser')
 // const authRouter = require('./routes/auth')
 
 const app = express();
 
 // for parsing application/json
 app.use(cors())
+app.use(bodyParser.json())
+
 // for parsing application/xwww-
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 // Get the Javascript in the browser
 app.use("/images", express.static("./utils/images"));

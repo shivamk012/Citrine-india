@@ -1,9 +1,8 @@
 <template>
-  <div class="header">
+  <div>
     <v-toolbar
-      color="white"
+      color="#f2eecb"
       dark
-      height="100px"
       fixed
       flat
     >
@@ -15,7 +14,7 @@
         <v-btn
           v-if="!$store.state.isUserLoggedin"
           depressed flat
-          color="white"
+          color="#f2eecb"
           class="black--text"
           @click="navigateTo({
             name: 'signUp'
@@ -25,7 +24,7 @@
         </v-btn>
         <v-btn
           depressed flat
-          color="white"
+          color="#f2eecb"
           class="black--text"
         >
           Browse
@@ -33,7 +32,7 @@
         <v-btn
           v-if="$store.state.isUserLoggedin"
           depressed light
-          color="white"
+          color="#f2eecb"
           @click="logout()"
         >
           Log Out 
@@ -41,7 +40,7 @@
         <v-btn
           v-if="!$store.state.isUserLoggedin"
           depressed light
-          color="white"
+          color="#f2eecb"
           @click="navigateTo({name:'login'})"
         >
           Login
@@ -49,7 +48,7 @@
         <v-btn
           v-if="$store.state.isAdmin"
           depressed light
-          color="white"
+          color="#f2eecb"
           @click="navigateTo({name:'adminHome'})"
         >
           Admin
@@ -66,9 +65,9 @@
         this.$router.push(route)
       },
       logout(){
+        this.$router.push({name:'home'})
         this.$store.dispatch('setToken', null)
         this.$store.dispatch('setUser', null)
-        this.$router.push({name:'home'})
       }
     }
   }
@@ -78,11 +77,20 @@
 
 
 <style scoped>
-  .header{
-    font-family: Montserrat;
-  }
-  .logo{
-    font-family: Ubuntu;
-    font-size: 1.5rem;
-  }
+.header{
+  font-family: Montserrat;
+  margin-bottom: 2%;
+  margin-left: 3%;
+  margin-right: 3%;
+}
+.logo{
+  font-family: Ubuntu;
+  font-size: 1.5rem;
+}
+.nav-items-home {
+  text-decoration: underline;
+}
+.nav-items:hover {
+  text-decoration: underline;
+}
 </style>

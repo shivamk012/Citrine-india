@@ -6,11 +6,13 @@ import GoogleAuth from '@/config/google_oAuth.js'
 import Admin from './components/Admin'
 import {sync} from 'vuex-router-sync'
 import store from './store/store'
-
+import Vuelidate from 'vuelidate'
 Vue.config.productionTip = false
 
 Vue.component('admin', Admin)
 sync(store, router)
+Vue.use(Vuelidate)
+
 
 const gauthOption = {
   clientId: '643638695088-abgs8j26a2s3so67gnroh5606g2lp8je.apps.googleusercontent.com',

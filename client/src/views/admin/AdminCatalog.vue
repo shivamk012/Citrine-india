@@ -8,128 +8,18 @@
         scroll-target="#scrolling-techniques-7"
       >
         
-        <v-dialog
-          v-model="dialog"
-          persistent
-          max-width="600px"
+        <v-btn
+          color="white"
+          depressed flat
+          class="black--text"
+          @click="navigateTo({name:'adminCreate'})"
         >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="white"
-              depressed flat
-              class="black--text"
-              v-bind="attrs"
-              v-on="on"
-            >
-              <v-icon left>
-                mdi-pencil
-                flat
-              </v-icon>
-              Create
-            </v-btn>
-          </template>
-          <v-card>
-            <v-card-title>
-              <span class="headline">Product Profile</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      label="Product name*"
-                      required
-                      v-model="productDetail.productName"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      label="Retail Price*"
-                      hint="In Indian Rupees"
-                      v-model="productDetail.retailPrice"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      label="Wholesale Price*"
-                      hint="In Indian Rupees"
-                      v-model="productDetail.wPrice"
-                      required
-                    ></v-text-field>
-                  </v-col>
-                  <v-col cols="12">
-                    <div>
-                      <li class="mt-2" v-for="item in productDetail.imageUrl" :key="item"></li>
-                    </div>
-                    <v-text-field
-                      label="Image URL*"
-                      :required="empty"
-                      v-model="imageUrl"
-                      append-outer-icon="mdi-plus"
-                      @click:append-outer="push(imageUrl)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                  >
-                    <v-select
-                      :items="['Kids', 'Men', 'Women']"
-                      label="Type*"
-                      required
-                      v-model="productDetail.catg"
-                    ></v-select>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                  >
-                    <v-autocomplete
-                      :items="mountedCollection"
-                      label="Collection"
-                      multiple
-                      v-model="productDetail.mcollection"
-                    ></v-autocomplete>
-                    <v-text-field
-                      label="New collection"
-                      v-model="productDetail.mcollection"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
-              </v-container>
-              <small>*indicates required field</small>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="dialog = false"
-              >
-                Close
-              </v-btn>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="save()"
-              >
-                Save
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
+          <v-icon left>
+            mdi-pencil
+            flat
+          </v-icon>
+          Create
+        </v-btn>
 
         <v-spacer></v-spacer>
 
@@ -214,134 +104,19 @@
                       <v-list-item-subtitle>Retail {{ productDetail.retailPrice }} -- Wholesale {{ productDetail.wPrice }}</v-list-item-subtitle>
                     </v-list-item-content>
                     <v-list-item-action>
-                      <v-dialog
-                        v-model="dialog"
-                        persistent
-                        max-width="600px"
+                      <v-btn
+                        color="white"
+                        depressed flat
+                        class="black--text"
+                        v-bind="attrs"
+                        v-on="on"
                       >
-                        <template v-slot:activator="{ on, attrs }">
-                          <v-btn
-                            color="white"
-                            depressed flat
-                            class="black--text"
-                            v-bind="attrs"
-                            v-on="on"
-                          >
-                            <v-icon left>
-                              mdi-pencil
-                              flat
-                            </v-icon>
-                            Edit
-                          </v-btn>
-                        </template>
-                        <v-card>
-                          <v-card-title>
-                            <span class="headline">Product Profile</span>
-                          </v-card-title>
-                          <v-card-text>
-                            <v-container>
-                              <v-row>
-                                <v-col
-                                  cols="12"
-                                  sm="6"
-                                  md="4"
-                                >
-                                  <v-text-field
-                                    label="Product name*"
-                                    required
-                                    v-model="productDetail.productName"
-                                  ></v-text-field>
-                                </v-col>
-                                <v-col
-                                  cols="12"
-                                  sm="6"
-                                  md="4"
-                                >
-                                  <v-text-field
-                                    label="Retail Price*"
-                                    hint="In Indian Rupees"
-                                    v-model="productDetail.retailPrice"
-                                  ></v-text-field>
-                                </v-col>
-                                <v-col
-                                  cols="12"
-                                  sm="6"
-                                  md="4"
-                                >
-                                  <v-text-field
-                                    label="Wholesale Price*"
-                                    hint="In Indian Rupees"
-                                    v-model="productDetail.wPrice"
-                                    required
-                                  ></v-text-field>
-                                </v-col>
-                                <v-col cols="12">
-                                  <div>
-                                    <li class="mt-2" v-for="item in productDetail.imageUrl" :key="item">
-                                      {{ item }}
-                                      <v-icon
-                                        @click="pullImage(item)"  
-                                      >mdi-minus</v-icon> 
-                                    </li>
-                                  </div>
-                                  <v-text-field
-                                    label="Image URL*"
-                                    :required="empty"
-                                    v-model="imageUrl"
-                                    append-outer-icon="mdi-plus"
-                                    @click:append-outer="push(imageUrl)"
-                                  ></v-text-field>
-                                </v-col>
-                                <v-col
-                                  cols="12"
-                                  sm="6"
-                                >
-                                  <v-select
-                                    :items="['Kids', 'Men', 'Women']"
-                                    label="Type*"
-                                    required
-                                    v-model="productDetail.catg"
-                                  ></v-select>
-                                </v-col>
-                                <v-col
-                                  cols="12"
-                                  sm="6"
-                                >
-                                  <v-autocomplete
-                                    :items="mountedCollection"
-                                    label="Collection"
-                                    multiple
-                                    v-model="productDetail.mcollection"
-                                  ></v-autocomplete>
-                                  <v-text-field
-                                    label="New collection"
-                                    v-model="productDetail.mcollection"
-                                    append-outer-icon="mdi-plus"
-                                  ></v-text-field>
-                                </v-col>
-                              </v-row>
-                            </v-container>
-                            <small>*indicates required field</small>
-                          </v-card-text>
-                          <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn
-                              color="blue darken-1"
-                              text
-                              @click="dialog = false"
-                            >
-                              Close
-                            </v-btn>
-                            <v-btn
-                              color="blue darken-1"
-                              text
-                              @click="save()"
-                            >
-                              Save
-                            </v-btn>
-                          </v-card-actions>
-                        </v-card>
-                      </v-dialog>
+                        <v-icon left>
+                          mdi-pencil
+                          flat
+                        </v-icon>
+                        Edit
+                      </v-btn>
                     </v-list-item-action>
                   </v-list-item>
                 </v-list>
@@ -362,7 +137,7 @@
 </template>
 
 <script>
-import CatalogServices from '../../services/catalogServices'
+// import CatalogServices from '../../services/catalogServices'
 
   export default {
     data: () => ({
@@ -397,29 +172,10 @@ import CatalogServices from '../../services/catalogServices'
       empty: true,
     }),
     methods:{
-      async save () {
-        console.log(this.productDetail)
-        const response = (await CatalogServices.save(this.productDetail)).data
-        if (response.success){
-          alert('Product detail saved successfully :)')
-        }
-      },
-      push (imageUrl) {
-        this.productDetail.imageUrl.push(imageUrl)
-        this.imageUrl = ''
-        this.empty = false
-        console.log('image url entered')
-      },
-      pullImage (item){
-        this.productDetail.imageUrl.splice(this.productDetail.imageUrl.indexOf(item),1)
-        if (this.productDetail.imageUrl == []) {
-          this.empty = true
-        }
-      },
-    },
-    // async mounted () {
-      
-    // }
+      navigateTo(route){
+        this.$router.push(route)
+      }
+    }
   }
 </script>
 

@@ -1,6 +1,4 @@
 <template>
-
-
   <v-footer
     color="#3a3a3a"
     padless
@@ -38,43 +36,33 @@
       </v-col>
     </v-row>
   </v-footer>
-
-
 </template>
 
 
 
 <script>
-
-
-  export default {
-    data: () => ({
-        links: [
-            'Team',
-            'Contact Us',
-        ],
-        icons:[
-            'mdi-facebook',
-            'mdi-instagram',
-        ]
-    }),
-  }
-
-
+export default {
+  data: () => ({
+    links: [
+      'Team',
+      'Contact Us',
+    ],
+    icons:[
+      'mdi-facebook',
+      'mdi-instagram',
+    ]
+  }),
+}
 </script>
 
-
-
 <style scoped>
-
-
-  .footer {
-    font-family: Montserrat;
-  }
-
-  .copyright {
-    font-size: .75rem;
-  }
-
-
+.footer {
+  font-family: Montserrat;
+  margin-top: 8%;
+  padding-top: 3%;
+  padding-bottom: 2%;
+}
+.copyright {
+  font-size: .75rem;
+}
 </style>

@@ -92,5 +92,12 @@ export default {
   position: absolute;
   width: 100%;
 }
+.signin {
+  margin-bottom: -50px;
+  padding-bottom: 10px;
+}
+.ortext {
+  font-size: .75rem;
+}
 </style>
 

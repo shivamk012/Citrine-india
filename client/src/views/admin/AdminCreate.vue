@@ -1,0 +1,150 @@
+<template>
+  <v-container>
+    <v-text-field
+      v-model="name"
+      :error-messages="nameErrors"
+      :counter="10"
+      label="Product Name"
+      required
+      @input="$v.name.$touch()"
+      @blur="$v.name.$touch()"
+    ></v-text-field>
+    <v-text-field
+      v-model="desc"
+      label="Product Description"
+    ></v-text-field>
+    <v-text-field
+      v-model="retail"
+      label="Retail Price"
+    ></v-text-field>
+    <v-text-field
+      v-model="wholesale"
+      label="Wholesale Price"
+    ></v-text-field>
+    <v-select
+      v-model="category"
+      :items="items"
+      label="Category"
+      required
+    ></v-select>
+    <v-text-field
+      v-model="newCollection"
+      label="New collection"
+    ></v-text-field>
+    <v-select
+      v-model="collectionValues"
+      :items="collectionKeys"
+      attach
+      chips
+      label="Existing Collections"
+      multiple
+    ></v-select>
+
+    <input type="file" @change="fileUpload">
+    <div v-if="files.length">
+      <h5>All files</h5>
+      <v-chip v-for="f in files" :key="f.name" class="mr-1">
+        {{ f.name }}
+      </v-chip>
+    </div>
+
+    <v-btn
+      class="mr-4"
+      @click="submit"
+    >
+      submit
+    </v-btn>
+    <v-btn @click="clear">
+      clear
+    </v-btn>
+  </v-container>
+</template>
+
+<script>
+  import { validationMixin } from 'vuelidate'
+  import { required, maxLength, email } from 'vuelidate/lib/validators'
+  import CatalogServices from '../../services/catalogServices'
+
+  export default {
+    mixins: [validationMixin],
+
+    validations: {
+      name: { required, maxLength: maxLength(10) },
+      email: { required, email },
+      select: { required },
+    },
+
+    data: () => ({
+      name: '',
+      desc: '',
+      category: null,
+      newCollection: '',
+      items: [
+        'Kids',
+        'Men',
+        'Women'
+      ],
+      collectionKeys: ['foo', 'bar', 'fizz', 'buzz'],
+      collectionValues: [],
+      retail: null,
+      wholesale: null,
+      currFiles: [],
+      files:[],
+    }),
+
+    computed: {
+      nameErrors () {
+        const errors = []
+        if (!this.$v.name.$dirty) return errors
+        !this.$v.name.maxLength && errors.push('Name must be at most 10 characters long')
+        !this.$v.name.required && errors.push('Name is required.')
+        return errors
+      },
+    },
+
+    methods: {
+      fileUpload (event) {
+        this.currFiles = event.target.files[0]
+      },
+      async submit () {
+        // const totalColl = [
+        //   ...this.collectionValues,
+        //   this.newCollection
+        // ]
+        // const payload = {
+        //   name: this.name,
+        //   category: this.category,
+        //   collection: totalColl,
+        //   retailPrice: this.retail,
+        //   wholesalePrice: this.wholesale,
+        //   description: this.desc,     
+        // }
+        const formData = new FormData();
+        console.log(this.currFiles)
+        // const imageFiles = this.currFiles
+        formData.append("imageFiles", this.currFiles);
+        // formData.append("payload", payload);
+        const response = (await CatalogServices.save(formData)).data
+        if (response.success) {
+          alert('Product Creates successfully :)');
+        }
+      },
+      clear () {
+        this.$v.$reset()
+        this.name = ''
+        this.email = ''
+        this.select = null
+      },
+      // remove (index) {
+      // this.files.splice(index, 1)
+      // },
+      // inputChanged () {
+      //   console.log(this.files)
+      //   this.files = [
+      //     ...this.currFiles,
+      //     ...this.files
+      //   ]
+      // }
+    },
+  }
+</script>

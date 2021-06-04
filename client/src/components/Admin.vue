@@ -9,11 +9,10 @@
         <slot>No slot content defined</slot> 
       </v-col>
       <v-col
-        cols="4"  
+        cols="2"  
       >
         <v-navigation-drawer
           v-model="drawer"
-          absolute
           permanent
           right
           :mini-variant.sync="mini"
