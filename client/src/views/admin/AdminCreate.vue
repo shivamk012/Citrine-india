@@ -40,13 +40,23 @@
       multiple
     ></v-select>
 
-    <input type="file" @change="fileUpload">
-    <div v-if="files.length">
-      <h5>All files</h5>
-      <v-chip v-for="f in files" :key="f.name" class="mr-1">
-        {{ f.name }}
-      </v-chip>
-    </div>
+    <v-file-input
+      v-model="files"
+      placeholder="Upload your documents"
+      label="File input"
+      multiple
+      prepend-icon="mdi-paperclip"
+    >
+      <template v-slot:selection="{ text }">
+        <v-chip
+          small
+          label
+          color="primary"
+        >
+          {{ text }}
+        </v-chip>
+      </template>
+    </v-file-input>
 
     <v-btn
       class="mr-4"
@@ -88,7 +98,6 @@
       collectionValues: [],
       retail: null,
       wholesale: null,
-      currFiles: [],
       files:[],
     }),
 
@@ -103,9 +112,6 @@
     },
 
     methods: {
-      fileUpload (event) {
-        this.currFiles = event.target.files[0]
-      },
       async submit () {
         // const totalColl = [
         //   ...this.collectionValues,
@@ -120,10 +126,10 @@
         //   description: this.desc,     
         // }
         const formData = new FormData();
-        console.log(this.currFiles)
-        // const imageFiles = this.currFiles
-        formData.append("imageFiles", this.currFiles);
-        // formData.append("payload", payload);
+        console.log(this.files)
+        this.files.forEach(element => {
+          formData.append("imageFiles", element)
+        });
         const response = (await CatalogServices.save(formData)).data
         if (response.success) {
           alert('Product Creates successfully :)');
@@ -135,16 +141,6 @@
         this.email = ''
         this.select = null
       },
-      // remove (index) {
-      // this.files.splice(index, 1)
-      // },
-      // inputChanged () {
-      //   console.log(this.files)
-      //   this.files = [
-      //     ...this.currFiles,
-      //     ...this.files
-      //   ]
-      // }
     },
   }
 </script>
