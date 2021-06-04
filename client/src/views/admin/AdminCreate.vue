@@ -40,28 +40,42 @@
       multiple
     ></v-select>
 
-    <v-file-input
-      v-model="files"
-      placeholder="Upload your documents"
-      label="File input"
-      multiple
-      prepend-icon="mdi-paperclip"
-    >
-      <template v-slot:selection="{ text }">
-        <v-chip
-          small
-          label
-          color="primary"
-        >
-          {{ text }}
-        </v-chip>
-      </template>
-    </v-file-input>
+    <div>
+      <v-file-input
+        v-model="files"
+        placeholder="Upload your documents"
+        label="File input"
+        multiple
+        prepend-icon="mdi-paperclip"
+      >
+        <template v-slot:selection="{ text }">
+          <v-chip
+            small
+            label
+            color="primary"
+          >
+            {{ text }}
+          </v-chip>
+        </template>
+      </v-file-input>
 
-    <v-btn
-      class="mr-4"
-      @click="submit"
-    >
+      <v-btn
+        :loading="loading"
+        :disabled="loading"
+        color="blue-grey"
+        class="ma-2 white--text"
+        @click="upload"
+      >
+        Upload
+        <v-icon
+          right
+          dark
+        >
+          mdi-cloud-upload
+        </v-icon>
+      </v-btn>
+    </div>
+    <v-btn>
       submit
     </v-btn>
     <v-btn @click="clear">
@@ -85,6 +99,7 @@
     },
 
     data: () => ({
+      loading:false,
       name: '',
       desc: '',
       category: null,
@@ -112,27 +127,15 @@
     },
 
     methods: {
-      async submit () {
-        // const totalColl = [
-        //   ...this.collectionValues,
-        //   this.newCollection
-        // ]
-        // const payload = {
-        //   name: this.name,
-        //   category: this.category,
-        //   collection: totalColl,
-        //   retailPrice: this.retail,
-        //   wholesalePrice: this.wholesale,
-        //   description: this.desc,     
-        // }
+      async upload () {
+        this.loading = true
         const formData = new FormData();
-        console.log(this.files)
         this.files.forEach(element => {
           formData.append("imageFiles", element)
         });
         const response = (await CatalogServices.save(formData)).data
         if (response.success) {
-          alert('Product Creates successfully :)');
+          this.loading = false
         }
       },
       clear () {

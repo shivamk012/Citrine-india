@@ -6,7 +6,7 @@
       fixed
       flat
     >
-      <v-toolbar-title class="black--text logo">
+      <v-toolbar-title class="white--text logo" @click="navigateTo({name:'home'})">
         CITRINE-INDIA
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -15,7 +15,7 @@
           v-if="!$store.state.isUserLoggedin"
           depressed flat
           color="#f2eecb"
-          class="black--text"
+          class="white--text"
           @click="navigateTo({
             name: 'signUp'
           })"

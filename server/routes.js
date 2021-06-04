@@ -9,5 +9,5 @@ module.exports = (app) => {
     UserControllers.login)
 
     app.post('/admin/product/create', store.array('imageFiles', 12),
-    ProductControllers.create)
+    ProductControllers.upload)
 }
