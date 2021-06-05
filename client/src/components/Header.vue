@@ -54,6 +54,7 @@
           Admin
         </v-btn>
       </v-toolbar-items>
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
     </v-toolbar>
   </div>
 </template>

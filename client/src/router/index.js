@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import SignUp from '../views/SignUp.vue'
 import Login from '../views/Login.vue'
+import Tnc from '../views/Tnc.vue'
+import ShipNreturn from '../views/ShipNreturn.vue'
 import admin from "./admin"
 
 
@@ -23,6 +25,16 @@ Vue.use(VueRouter)
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/terms',
+    name: 'tnc',
+    component: Tnc
+  },
+  {
+    path: '/deliverypolicy',
+    name: 'shipnreturn',
+    component: ShipNreturn
   },
   ...admin
 //   {

@@ -9,13 +9,14 @@
       no-gutters
     >
       <v-btn
-        v-for="link in links"
-        :key="link"
+        v-for="key in keys"
+        :key="key"
         color="white"
         text
         class="my-2"
+        @click="navigateTo({name:`${key.link}`})"
       >
-        {{ link }}
+        {{ key.name }}
       </v-btn>
       <v-btn
         v-for="icon in icons"
@@ -43,15 +44,22 @@
 <script>
 export default {
   data: () => ({
-    links: [
-      'Team',
-      'Contact Us',
+    keys: [
+      {name: 'Team', link:'team'},
+      {name: 'Contact Us', link:'contactus'},
+      {name:'Terms & Conditions', link:'tnc'},
+      {name:'Shipping And Returns', link:'shipnreturn'},
     ],
     icons:[
       'mdi-facebook',
       'mdi-instagram',
     ]
   }),
+  methods:{
+    navigateTo (route) {
+      this.$router.push(route)
+    }
+  }
 }
 </script>
 
