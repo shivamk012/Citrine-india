@@ -71,10 +71,10 @@ module.exports = {
       const data = {
         name: userDoc.name,
         email: userDoc.email,
-        imageUrl: userDoc.picture,
+        imageUrl: userDoc.imageUrl,
         role: userDoc.role,
       }
-
+      
       const token = await UserServices.createToken(userDoc._id)
       return {
         token,

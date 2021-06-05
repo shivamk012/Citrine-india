@@ -1,4 +1,5 @@
 const { model, Schema } = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate')
 
 const UserSchema = new Schema({
   name: {
@@ -21,7 +22,7 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ["admin", "customer"],
+    enum: ["admin", "customer","wholesaler"],
     default: "customer",
   },
   created:{ 
@@ -31,6 +32,8 @@ const UserSchema = new Schema({
   cart: [{productId:String, count:Number}], // Storing only the ids of the products purchased.
   previousPurchase: [{productId:String, count:Number}],
 })
+
+UserSchema.plugin(mongoosePaginate)
 
 const User = model("User", UserSchema);
 module.exports = User

@@ -1,60 +1,59 @@
 <template>
   <admin>
-    <div
-      class="text-section" 
-    >
-      <!-- Text and Button Section for Gents-page -->
-      <v-form>
-        <v-container>
-          <v-row>
-            <!-- Create-Button -->
-            <v-col
-              cols="4"
-              sm="7"
-            >
-              <v-btn
-                tile
-                dark
-                depressed
-              >
-                <v-icon left>
-                  mdi-pencil
-                  flat
-                </v-icon>
-                Add
-              </v-btn>
-            </v-col>
-            <!-- Search-tab -->
-            <v-col
-              cols="4"
-              sm="3"
-            >
-              <v-text-field
-                label="search items"
-                clearable
-                color="dark" 
-                class="ml-auto"
-              ></v-text-field>
-            </v-col>
-            <!-- Search-Button -->
-            <v-col
-              cols="4"
-              sm="1"
-            >
-              <v-btn icon>
-                <v-icon>mdi-magnify</v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-form> 
-      <!-- Examples of all gents collection (max: 8... 4 in each row) -->
-    </div>
+     <v-simple-table dark>
+      <template v-slot:default>
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Email
+            </th>
+            <th>
+              View
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="user in users.docs"
+            :key="user._id"
+          >
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td><v-btn @click="navigateTo({name:'viewUser',params:{userId:user._id}})">View</v-btn></td>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
   </admin>
 </template>
 
 <script>
+import UserServices from '../../services/userServices'
 
+export default {
+  data : () => ({
+    users:{
+      docs:[],
+      limit:null,
+      pages:null,
+      page:null,
+      offset:null,
+      total:null,
+    }
+  }),
+  async mounted () {
+    this.users = (await UserServices.getUsers()).data
+    console.log(this.users)
+  },
+  methods: {
+    navigateTo(route) {
+      this.$router.push(route)
+    }
+  }
+}
 </script>
 
 <style scoped>

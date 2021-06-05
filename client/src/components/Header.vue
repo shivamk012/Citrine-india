@@ -15,14 +15,46 @@
         class="d-none d-sm-flex"
       >
         <v-btn
-          depressed
-          flat
+          v-if="!$store.state.isUserLoggedin"
+          depressed flat
           color="#f2eecb"
-          v-for="item in menuItems"
-          :key="item.title"
+          class="black--text"
+          @click="navigateTo({
+            name: 'signUp'
+          })"
         >
-          <v-icon left>{{ item.icon }}</v-icon>
-          {{ item.title }}
+          Sign Up
+        </v-btn>
+        <v-btn
+          depressed flat
+          color="#f2eecb"
+          class="black--text"
+        >
+          Browse
+        </v-btn>
+        <v-btn
+          v-if="$store.state.isUserLoggedin"
+          depressed light
+          color="#f2eecb"
+          @click="logout()"
+        >
+          Log Out 
+        </v-btn>
+        <v-btn
+          v-if="!$store.state.isUserLoggedin"
+          depressed light
+          color="#f2eecb"
+          @click="navigateTo({name:'login'})"
+        >
+          Login
+        </v-btn>
+        <v-btn
+          v-if="$store.state.isAdmin"
+          depressed light
+          color="#f2eecb"
+          @click="navigateTo({name:'adminHome'})"
+        >
+          Admin
         </v-btn>
       </v-toolbar-items>
       <v-app-bar-nav-icon
@@ -36,6 +68,7 @@
           <v-list-item
             v-for="item in menuItems"
             :key="item.title"
+            @click="navigateTo({name:item.link})"
           >
             <v-list-item-title>
               <v-icon>{{ item.icon }}</v-icon>
@@ -65,7 +98,7 @@
       menuItems: [
         {icon:'mdi-folder-open',title:'Collections'},
         {icon:'mdi-account',title:'Profile'},
-        {icon:'mdi-account-group-online',title:'Sign Up'},
+        {icon:'mdi-store',title:'Sign Up'},
         {icon:'mdi-account',title:'Sign In'},
       ]
     })

@@ -14,6 +14,7 @@
     <p class="quote">
       "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
     </p>
+    <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-parallax>
     <!-- Collection-starts -->
     <div class="collections">
       <h2>OUR COLLECTION</h2>

@@ -26,4 +26,26 @@ module.exports = {
       })
     }
   },
+  async getUsers (req, res) {
+    try {
+      const users = await User.paginate({},{limit:10})
+      // console.log('users ',users) pages
+      res.send(users)
+    } catch (error) {
+      res.status(400).send({
+        error: 'Server error! Kindly retry after some time.'
+      })
+    }
+  },
+  async user (req, res) {
+    try {
+      const users = await User.findOne({_id:req.params.id})
+      // console.log('users ',users)
+      res.send(users)
+    } catch (error) {
+      res.status(400).send({
+        error: 'Server error! Kindly retry after some time.'
+      })
+    }
+  }
 }
