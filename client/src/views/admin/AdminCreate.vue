@@ -129,13 +129,27 @@
     methods: {
       async upload () {
         this.loading = true
+        this.collectionValues = [
+          ...this.collectionValues,
+          this.newCollection,
+        ]
+        const payload = {
+          name:this.name,
+          category:this.category,
+          collections: this.collectionValues,
+          description: this.desc,
+          retailPrice: this.retail,
+          wholesalePrice: this.wholesale,
+        }
         const formData = new FormData();
         this.files.forEach(element => {
           formData.append("imageFiles", element)
         });
+        formData.append('payload', JSON.stringify(payload))
         const response = (await CatalogServices.save(formData)).data
         if (response.success) {
           this.loading = false
+          window.location.reload();
         }
       },
       clear () {

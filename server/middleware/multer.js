@@ -26,7 +26,11 @@ function uploadFile(files) {
     
   })
   return Promise.all(resultArray).then(end => {
-    return end
+    let images = []
+    end.forEach(obj => {
+      images.push(obj.Location)
+    })
+    return images
   })
 }
 
