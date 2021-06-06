@@ -1,6 +1,6 @@
 const UserControllers = require('./controllers/UserControllers')
 const ProductControllers = require('./controllers/ProductControllers.js')
-const store = require('./middleware/multer')
+const {store} = require('./middleware/multer')
 
 module.exports = (app) => {
     app.post('/register',
