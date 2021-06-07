@@ -14,7 +14,7 @@
       ></v-carousel-item>
     </v-carousel>
     <!-- Quote -->
-    <p class="quote">
+    <p v-scrollanimation class="quote">
       "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."
     </p>
     <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg"></v-parallax>
@@ -147,7 +147,9 @@
 </template>
 
 <script>
+
   export default {
+    
     data () {
       return {
         items: [
@@ -206,5 +208,16 @@
   .rakhiTypes {
     margin-bottom: 15%;
     margin-top: 15%;
+  }
+
+  .befor-enter{
+    opacity:0;
+    transform: translateY(100px);
+    transition: all 3s ease-out;
+  }
+
+  .enter{
+    opacity:1;
+    transform: translateY(0px);
   }
 </style>

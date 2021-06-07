@@ -21,6 +21,10 @@
       v-model="wholesale"
       label="Wholesale Price"
     ></v-text-field>
+    <v-text-field
+      v-model="productCode"
+      label="Product Code"
+    ></v-text-field>
     <v-select
       v-model="category"
       :items="items"
@@ -100,8 +104,8 @@
 
     data: () => ({
       loading:false,
-      name: '',
-      desc: '',
+      name: 'CRA',
+      desc: 'CRA',
       category: null,
       newCollection: '',
       items: [
@@ -111,9 +115,10 @@
       ],
       collectionKeys: ['foo', 'bar', 'fizz', 'buzz'],
       collectionValues: [],
-      retail: null,
-      wholesale: null,
+      retail: 250,
+      wholesale: 180,
       files:[],
+      productCode: 'CRA'
     }),
 
     computed: {
@@ -140,6 +145,7 @@
           description: this.desc,
           retailPrice: this.retail,
           wholesalePrice: this.wholesale,
+          productCode: this.productCode
         }
         const formData = new FormData();
         this.files.forEach(element => {

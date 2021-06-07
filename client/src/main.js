@@ -7,8 +7,11 @@ import Admin from './components/Admin'
 import {sync} from 'vuex-router-sync'
 import store from './store/store'
 import Vuelidate from 'vuelidate'
+import ScrollAnimation from './directives/scrollanimation'
+
 Vue.config.productionTip = false
 
+Vue.directive('scrollanimation', ScrollAnimation)
 Vue.component('admin', Admin)
 sync(store, router)
 Vue.use(Vuelidate)

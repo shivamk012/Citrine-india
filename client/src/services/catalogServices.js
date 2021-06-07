@@ -6,8 +6,13 @@ export default{
       "Content-Type": "multipart/form-data"
     }})
   },
-  login (credentials) {
-    return Api().post('login', credentials)
-  }
+  index (search, page) {
+    return Api().get('admin/product', {
+      params: {
+        page,
+        search: search
+      }
+    })
+  },
 }
   
