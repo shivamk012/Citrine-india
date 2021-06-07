@@ -1,7 +1,7 @@
 <template>
   <nav>
     <v-toolbar
-      color="#f2eecb"
+      color="black"
       dark
       fixed
       flat
@@ -17,8 +17,8 @@
         <v-btn
           v-if="!$store.state.isUserLoggedin"
           depressed flat
-          color="#f2eecb"
-          class="black--text"
+          color="black"
+          class="white--text"
           @click="navigateTo({
             name: 'signUp'
           })"
@@ -27,31 +27,31 @@
         </v-btn>
         <v-btn
           depressed flat
-          color="#f2eecb"
-          class="black--text"
+          color="black"
+          class="white--text"
         >
           Browse
         </v-btn>
         <v-btn
           v-if="$store.state.isUserLoggedin"
-          depressed light
-          color="#f2eecb"
+          depressed
+          color="black"
           @click="logout()"
         >
           Log Out 
         </v-btn>
         <v-btn
           v-if="!$store.state.isUserLoggedin"
-          depressed light
-          color="#f2eecb"
+          depressed
+          color="black"
           @click="navigateTo({name:'login'})"
         >
           Login
         </v-btn>
         <v-btn
           v-if="$store.state.isAdmin"
-          depressed light
-          color="#f2eecb"
+          depressed
+          color="black"
           @click="navigateTo({name:'adminHome'})"
         >
           Admin

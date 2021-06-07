@@ -1,11 +1,14 @@
 <template>
   <div class="home-collection">
     <!-- Testimolials -->
-    <v-carousel>
+    <v-carousel
+      height="700"
+    >
       <v-carousel-item
         v-for="(item,i) in items"
         :key="i"
         :src="item.src"
+        aspect-ratio="2.88"
         reverse-transition="fade-transition"
         transition="fade-transition"
       ></v-carousel-item>
@@ -66,7 +69,7 @@
                 max-width="300"
               >
                 <v-img
-                  src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+                  src="https://citrine-india-site.s3.ap-south-1.amazonaws.com/FrontC4.jpeg"
                   height="200px"
                   class="collection-img"
                 ></v-img>
@@ -104,7 +107,7 @@
                 max-width="300"
               >
                 <v-img
-                  src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+                  src="https://citrine-india-site.s3.ap-south-1.amazonaws.com/ex.png"
                   height="200px"
                   class="collection-img"
                 ></v-img>
@@ -149,16 +152,28 @@
       return {
         items: [
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+            src: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/F8.jpeg',
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg',
+            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/F7.jpeg',
           },
           {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg',
+            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/F5.jpeg',
+          },
+          {
+            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/F4.jpeg',
+          },
+          {
+            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/F3p.jpg',
+          },
+          {
+            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/F2.jpeg',
+          },
+          {
+            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/F1.jpeg',
           },
         ],
       }
