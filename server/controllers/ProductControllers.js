@@ -40,7 +40,7 @@ exports.indexPaginated = async function (req, res) {
       page,
       limit: 6,
     });
-    console.log(pData)
+    // console.log(pData)
     res.json({success:true, data: pData})
   } catch (error) {
     return res.status(401).json({ success: false, message: `${error}` });

@@ -1,5 +1,5 @@
 const User = require('../models/Users')
-const GoogleAuth = require("../controllers/GoogleAuth")
+const GoogleAuth = require("../controllers/GoogleAuth");
 
 module.exports = {
   async register (req, res) {
@@ -26,15 +26,30 @@ module.exports = {
       })
     }
   },
-  async getUsers (req, res) {
+  async indexPaginated (req, res) {
     try {
-      const users = await User.paginate({},{limit:10})
-      // console.log('users ',users) pages
-      res.send(users)
+      // let products = null
+      const query = req.query.search 
+      const page = req.query.page
+      let searchObject = {};
+      // console.log('reached')
+  
+      if (query) {
+        const re = new RegExp(`${query}.*`, "i");
+        re.ignoreCase = true;
+        searchObject = {
+          $or: [{ name: re }],
+        };
+      }
+  
+      const pData = await User.paginate(searchObject, {
+        page,
+        limit: 6,
+      });
+      // console.log(pData)
+      res.json({success:true, data: pData})
     } catch (error) {
-      res.status(400).send({
-        error: 'Server error! Kindly retry after some time.'
-      })
+      return res.status(401).json({ success: false, message: `${error}` });
     }
   },
   async user (req, res) {

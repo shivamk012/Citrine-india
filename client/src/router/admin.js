@@ -1,10 +1,10 @@
 
 // Admin Related routes
 import AdminHome from '../views/admin/AdminHome.vue'
-import AdminUser from '../views/admin/AdminUser.vue'
-import AdminCatalog from '../views/admin/AdminCatalog.vue'
+import AdminUser from '../views/admin/Users/AdminUser.vue'
+import AdminCatalog from '../views/admin/Catalog/AdminCatalog.vue'
 import AdminCreate from '../views/admin/AdminCreate.vue'
-import ViewUser from '../views/admin/ViewUser.vue'
+import ViewUser from '../views/admin/Users/ViewUser.vue'
 
 export default [
   {

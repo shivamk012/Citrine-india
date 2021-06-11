@@ -9,8 +9,8 @@
       no-gutters
     >
       <v-btn
-        v-for="key in keys"
-        :key="key"
+        v-for="(key,k) in keys"
+        :key="k"
         color="white"
         text
         class="my-2"
@@ -19,8 +19,8 @@
         {{ key.name }}
       </v-btn>
       <v-btn
-        v-for="icon in icons"
-        :key="icon"
+        v-for="(icon,i) in icons"
+        :key="i"
         color="white"
         text
         class="my-2"
@@ -33,7 +33,7 @@
         class="#3a3a3a py-4 text-center white--text copyright"
         cols="12"
       >
-        {{ new Date().getFullYear() }} — <strong> @Citrine-India made by Rishi and Pulkit.</strong>
+        {{ new Date().getFullYear() }} — <strong> @Citrine-India made by Rishi and Shivam.</strong>
       </v-col>
     </v-row>
   </v-footer>

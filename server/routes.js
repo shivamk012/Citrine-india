@@ -12,6 +12,6 @@ module.exports = (app) => {
     ProductControllers.upload)
     app.get('/admin/product', ProductControllers.indexPaginated)
 
-    app.get('/admin/users', UserControllers.getUsers)
+    app.get('/admin/users', UserControllers.indexPaginated)
     app.get('/admin/users/:id', UserControllers.user)
 }

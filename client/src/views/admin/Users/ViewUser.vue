@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import UserServices from '../../services/userServices'
+import UserServices from '../../../services/userServices'
 
 export default {
   data: () => ({

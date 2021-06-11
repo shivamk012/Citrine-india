@@ -16,7 +16,7 @@
         class="mt-10"
       >
         <v-col
-          v-for="doc in docs"
+          v-for="doc in data.docs"
           :key="doc"
           class="ml-3 mb-3"
         >
@@ -69,9 +69,10 @@
       </v-row>
       <div class="text-center mt-5">
         <v-pagination
-          v-model="page"
-          :length="3"
-          :total-visible="3"
+          v-model="data.page"
+          :length="length"
+          circle
+          @input="getProducts"
         ></v-pagination>
       </div>
     </v-container>
@@ -79,16 +80,18 @@
 </template>
 
 <script>
-import CatalogServices from '../../services/catalogServices'
+import CatalogServices from '../../../services/catalogServices'
 
 export default {
   data: () => ({
     dialog: false,
-    docs: [],
-    total: null,
-    limit: null,
-    page: null,
-    pages: null ,
+    data: {
+      docs: null,
+      total: null,
+      limit: null,
+      page: 1,
+      pages: null ,
+    },
     cycle: false,
     items: [
     {
@@ -105,13 +108,23 @@ export default {
     },
     ],
     empty: true,
+    length: null,
+    sValue: null,
   }),
   watch: {
     '$route.query.search': {
       immediate: true,
       async handler (value) {
-        this.docs = (await CatalogServices.index(value, this.page)).data.data.docs
+        this.sValue = value
+        this.getProducts(this.data.page)
       }
+    }
+  },
+  methods:{
+    async getProducts (page) {
+      this.data = (await CatalogServices.index(this.sValue, page)).data.data
+      console.log(this.data)
+      this.length = this.data.pages
     }
   }
 }
