@@ -75,7 +75,7 @@ module.exports = {
         role: userDoc.role,
         _id: userDoc._id,
       }
-      
+
       const token = await UserServices.createToken(userDoc._id)
       return {
         token,

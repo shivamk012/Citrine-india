@@ -20,4 +20,3 @@ export default{
     return Api().get(`admin/product/${id}`)
   }
 }
-  

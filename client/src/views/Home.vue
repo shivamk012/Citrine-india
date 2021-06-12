@@ -209,7 +209,7 @@
 <script>
 
   export default {
-    
+
     data () {
       return {
         reveal: false,
@@ -283,6 +283,9 @@
     opacity:1;
     transform: translateY(0px);
   }
+
+</style>
+
   .v-card--reveal {
     bottom: 0;
     opacity: 1 !important;
@@ -301,3 +304,4 @@
     color: rgba(255, 255, 255, 1) !important;
   }
 </style>
+

@@ -9,7 +9,7 @@ import ShipNreturn from '../views/ShipNreturn.vue'
 import Catalog from '../views/Catalog.vue'
 import Payment from '../views/Payment.vue'
 import admin from "./admin"
-
+import GoToCart from '../views/Cart.vue'
 
 Vue.use(VueRouter)
 
@@ -45,6 +45,9 @@ Vue.use(VueRouter)
     component: ShipNreturn
   },
   {
+    path:'/gotocart',
+    name : 'gotocart',
+    component: GoToCart
     path: '/catalog',
     name: 'catalog',
     component: Catalog

@@ -7,6 +7,8 @@ module.exports = (app) => {
     UserControllers.register)
     app.post('/login',
     UserControllers.login)
+    app.get('/login/:id',
+    UserControllers.getCart)
 
     app.post('/admin/product/create', store.array('imageFiles', 12),
     ProductControllers.upload)

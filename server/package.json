@@ -24,7 +24,6 @@
     "multer-s3": "^2.9.0",
     "nodemon": "^2.0.7"
   },
-  "devDependencies": {},
   "author": "Rish",
   "license": "ISC"
 }
