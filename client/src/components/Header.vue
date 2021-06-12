@@ -25,6 +25,17 @@
         >
           Sign Up
         </v-btn>
+
+        <v-btn
+          depressed flat
+          color="black"
+          class="white--text"
+          @click="navigateTo({
+            name: 'catalog'
+          })"
+        >
+          Catalog
+        </v-btn>
         
         <v-menu
           open-on-hover

@@ -1,3 +1,5 @@
+// use product instead of catalog
+
 import Api from '../services/api'
 
 export default{
@@ -14,5 +16,8 @@ export default{
       }
     })
   },
+  edit (id) {
+    return Api().get(`admin/product/${id}`)
+  }
 }
   

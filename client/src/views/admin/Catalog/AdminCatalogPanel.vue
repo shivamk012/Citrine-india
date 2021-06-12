@@ -54,10 +54,11 @@
                     class="black--text"
                     v-bind="attrs"
                     v-on="on"
+                    @click="navigateTo({name:'adminCatalogEdit',params:{productId:doc._id}})"
                   >
                     <v-icon left>
-                        mdi-pencil
-                        flat
+                      mdi-pencil
+                      flat
                     </v-icon>
                     Edit
                   </v-btn>
@@ -125,6 +126,10 @@ export default {
       this.data = (await CatalogServices.index(this.sValue, page)).data.data
       console.log(this.data)
       this.length = this.data.pages
+      
+    },
+    navigateTo (route) {
+      this.$router.push(route)
     }
   }
 }

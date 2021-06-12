@@ -1,6 +1,6 @@
-const Product = require('../models/Products')
 // const Uploads = require('../models/upload')
-const { uploadFile } = require('../middleware/multer')
+const { uploadFile } = require('../middleware/multer');
+const Products = require('../models/Products');
 // const fs = require('fs');
 // const { resolveSoa } = require('dns');
 
@@ -12,7 +12,7 @@ exports.upload = async function (req, res) {
     data.image = result
     // console.log('data')
     // console.log(data)
-    await Product.create(data)
+    await Products.create(data)
     console.log('created')
     res.json({success:true})
   } catch (error) {
@@ -22,7 +22,6 @@ exports.upload = async function (req, res) {
 
 exports.indexPaginated = async function (req, res) {
   try {
-    // let products = null
     const query = req.query.search 
     const page = req.query.page
     let searchObject = {};
@@ -36,7 +35,7 @@ exports.indexPaginated = async function (req, res) {
       };
     }
 
-    const pData = await Product.paginate(searchObject, {
+    const pData = await Products.paginate(searchObject, {
       page,
       limit: 6,
     });
@@ -44,5 +43,17 @@ exports.indexPaginated = async function (req, res) {
     res.json({success:true, data: pData})
   } catch (error) {
     return res.status(401).json({ success: false, message: `${error}` });
+  }
+}
+
+exports.edit = async function (req, res) {
+  try {
+    const product = await Products.findOne({_id:req.params.id})
+    console.log(product)
+    res.send(product)
+  } catch (error) {
+    res.status(400).send({
+      error: 'Server error! Kindly retry after some time.'
+    })
   }
 }

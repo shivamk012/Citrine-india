@@ -6,6 +6,8 @@ import Login from '../views/Login.vue'
 import ShopNow from '../views/shopnow.vue'
 import Tnc from '../views/Tnc.vue'
 import ShipNreturn from '../views/ShipNreturn.vue'
+import Catalog from '../views/Catalog.vue'
+import Payment from '../views/Payment.vue'
 import admin from "./admin"
 
 
@@ -41,6 +43,16 @@ Vue.use(VueRouter)
     path: '/deliverypolicy',
     name: 'shipnreturn',
     component: ShipNreturn
+  },
+  {
+    path: '/catalog',
+    name: 'catalog',
+    component: Catalog
+  },
+  {
+    path: ':user/cart/payments',
+    name: 'payment',
+    component: Payment
   },
   ...admin
 //   {

@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-text-field
-      v-model="name"
+      v-model="product.name"
       :error-messages="nameErrors"
       :counter="10"
       label="Product Name"
@@ -10,23 +10,23 @@
       @blur="$v.name.$touch()"
     ></v-text-field>
     <v-text-field
-      v-model="desc"
+      v-model="product.description"
       label="Product Description"
     ></v-text-field>
     <v-text-field
-      v-model="retail"
+      v-model="product.retailPrice"
       label="Retail Price"
     ></v-text-field>
     <v-text-field
-      v-model="wholesale"
+      v-model="product.wholesalePrice"
       label="Wholesale Price"
     ></v-text-field>
     <v-text-field
-      v-model="productCode"
+      v-model="product.productCode"
       label="Product Code"
     ></v-text-field>
     <v-select
-      v-model="category"
+      v-model="product.category"
       :items="items"
       label="Category"
       required
@@ -36,7 +36,7 @@
       label="New collection"
     ></v-text-field>
     <v-select
-      v-model="collectionValues"
+      v-model="product.collections"
       :items="collectionKeys"
       attach
       chips
@@ -68,9 +68,9 @@
         :disabled="loading"
         color="blue-grey"
         class="ma-2 white--text"
-        @click="upload"
+        @click="update"
       >
-        Upload
+        Update
         <v-icon
           right
           dark
@@ -78,20 +78,19 @@
           mdi-cloud-upload
         </v-icon>
       </v-btn>
+      <v-btn
+        @click="Delete"
+      >
+        Delete
+      </v-btn>
     </div>
-    <v-btn>
-      submit
-    </v-btn>
-    <v-btn @click="clear">
-      clear
-    </v-btn>
   </v-container>
 </template>
 
 <script>
   import { validationMixin } from 'vuelidate'
   import { required, maxLength, email } from 'vuelidate/lib/validators'
-  import CatalogServices from '../../services/catalogServices'
+  import CatalogServices from '../../../services/catalogServices'
 
   export default {
     mixins: [validationMixin],
@@ -104,9 +103,15 @@
 
     data: () => ({
       loading:false,
-      name: 'CRA',
-      desc: 'CRA',
-      category: null,
+      product:{
+        name: null,
+        description: null,
+        category: null,
+        collections: [],
+        retailPrice: null,
+        wholesalePrice: null,
+        productCode: null,
+      },
       newCollection: '',
       items: [
         'Kids',
@@ -114,11 +119,8 @@
         'Women'
       ],
       collectionKeys: ['foo', 'bar', 'fizz', 'buzz'],
-      collectionValues: [],
-      retail: 250,
-      wholesale: 180,
+      
       files:[],
-      productCode: 'CRA'
     }),
 
     computed: {
@@ -130,9 +132,12 @@
         return errors
       },
     },
-
+    async mounted(){
+      const productId = this.$route.params.productId
+      this.product = (await CatalogServices.edit(productId)).data;
+    },
     methods: {
-      async upload () {
+      async update () {
         this.loading = true
         this.collectionValues = [
           ...this.collectionValues,
@@ -152,7 +157,7 @@
           formData.append("imageFiles", element)
         });
         formData.append('payload', JSON.stringify(payload))
-        const response = (await CatalogServices.save(formData)).data
+        const response = (await CatalogServices.update(formData)).data
         if (response.success) {
           this.loading = false
           window.location.reload();
