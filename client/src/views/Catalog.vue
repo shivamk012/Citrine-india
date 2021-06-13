@@ -34,29 +34,32 @@
             >
             </v-carousel-item>
           </v-carousel>
-          <v-list two-line>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>{{ doc.name }}</v-list-item-title>
-                <v-list-item-subtitle>Retail {{ doc.retailPrice }} -- Wholesale {{ doc.wholesalePrice }}</v-list-item-subtitle>
-              </v-list-item-content>
-              <v-list-item-action>
-                <v-btn
-                  color="white"
-                  depressed flat
-                  class="black--text"
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <v-icon left>
-                    mdi-pencil
-                    flat
-                  </v-icon>
-                  Edit
-                </v-btn>
-              </v-list-item-action>
-            </v-list-item>
-          </v-list>
+          <v-card-title>
+            {{ doc.name }}
+          </v-card-title>
+
+          <v-card-subtitle>
+            {{ doc.retailPrice }}
+          </v-card-subtitle>
+
+          <v-card-actions>
+            <v-btn
+              color="orange lighten-2"
+              text
+              @click="navigateTo({name:'shopnow',params:{pname:doc.name}})"
+            >
+              Shop now
+            </v-btn>
+
+            <v-spacer></v-spacer>
+
+            <v-btn
+              color="orange lighten-2"
+              text
+            >
+              Add to cart
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -72,4 +75,30 @@
 </template>
 
 <script>
+import CatalogServices from '../services/catalogServices'
+
+export default {
+  data : ()=>({
+    data: {
+      docs: null,
+      total: null,
+      limit: null,
+      page: 1,
+      pages: null ,
+    },
+    length: null,
+  }),
+  async mounted (){
+    this.getProducts(this.data.page)
+  },
+  methods:{
+    async getProducts(page){
+      this.data = (await CatalogServices.index('',page)).data.data
+      this.length = this.data.pages
+    },
+    navigateTo(route){
+      this.$router.push(route)
+    }
+  }
+}
 </script>

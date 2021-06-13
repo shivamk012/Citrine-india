@@ -18,5 +18,8 @@ export default{
   },
   edit (id) {
     return Api().get(`admin/product/${id}`)
+  },
+  productAndRelated (pname) {
+    return Api().get(`product/${pname}`)
   }
 }

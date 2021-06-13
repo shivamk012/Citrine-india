@@ -7,6 +7,8 @@ import Login from '../views/Login.vue'
 import ShopNow from '../views/shopnow.vue'
 import Tnc from '../views/Tnc.vue'
 import ShipNreturn from '../views/ShipNreturn.vue'
+import Catalog from '../views/Catalog.vue'
+import ContactInfo from '../views/ContactInfo.vue'
 import admin from "./admin"
 import GoToCart from '../views/Cart.vue'
 import PaySuccess from '../views/paymentsuccess.vue'
@@ -32,9 +34,19 @@ Vue.use(VueRouter)
     component: Login
   },
   {
-    path: '/shopnow',
+    path: '/catalog',
+    name: 'catalog',
+    component: Catalog
+  },
+  {
+    path: '/catalog/:pname',
     name: 'shopnow',
     component : ShopNow,
+  },
+  {
+    path: '/catalog/:pname/contact',
+    name: 'contactInfo',
+    component : ContactInfo,
   },
   {
     path: '/terms',

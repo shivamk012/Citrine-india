@@ -66,7 +66,7 @@ export default {
           const response = (await AuthenticationServices.login(id_token)).data
           this.$store.dispatch('setToken', response.token)
           this.$store.dispatch('setUser', response.user)
-          this.$router.push({name:'home'})
+          window.history.go(-1);
         })
         .catch(error => {
           console.log('error', error)

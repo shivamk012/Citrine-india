@@ -21,9 +21,9 @@
             width="450"
           >
             <v-carousel-item
-              v-for="(item, i) in items"
+              v-for="(src, i) in displayProduct.image"
               :key="i"
-              :src="item.src"
+              :src="src"
               contain
             >
             </v-carousel-item>
@@ -35,11 +35,11 @@
           flat
         >
           <v-card-text>
-            <p class="text-h3 grey--text text--darken-3">Colour Lush</p>
+            <p class="text-h3 grey--text text--darken-3">{{ displayProduct.name }}</p>
             <p class="text-h5">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aut sed hic perferendis,.
+              {{ displayProduct.description }}
             </p>
-            <p class="text-h6">MRP : <span>Rs X</span></p>
+            <p class="text-h6">MRP : <span>Rs {{ displayProduct.retailPrice }}</span></p>
             <v-btn
               elevation="2"
               outlined
@@ -52,6 +52,7 @@
               color="black"
               class="white--text mt-3"
               block
+              @click="buynow"
               >
               Buy Now
             </v-btn>
@@ -75,35 +76,38 @@
 </template>
 
 <script>
+import CatalogServices from '../services/catalogServices';
 
 export default {
   data () {
-      return {
+    return {
       showAnimation: false,
-        
-        items: [
-          {
-            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/FrontC4.jpeg',
-          },
-          {
-            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/FrontC2.jpeg',
-          },
-          {
-            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/FrontC3.jpeg',
-          },
-          {
-            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/ex.png',
-          },
-        ],
-      }
-    },
-
-    methods : {
-       navigateTo(route)
-       {
-         this.$router.push(route);
-       }
+      displayProduct:null,
     }
+  },
+
+  methods : {
+    navigateTo(route){
+      this.$router.push(route);
+    },
+    buynow(){
+      if (!this.$store.state.isUserLoggedin) {
+        this.$router.push({name:'login'})
+      }
+
+      this.$router.push({
+        name:'contactInfo',
+        params:{
+          pname:this.displayProduct.name
+        }
+      })
+      
+    }
+  },
+  async mounted () {
+    const pname = this.$route.params.pname
+    this.displayProduct = (await CatalogServices.productAndRelated(pname)).data
+  }
 }
 </script>
 

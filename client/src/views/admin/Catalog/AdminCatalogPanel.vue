@@ -10,7 +10,7 @@
       style="height: 1500px;"
       class="grey lighten-5 mb-6"
     >
-      <h1 class="text-center">Happy Grinding</h1>
+      <h1 class="text-center">Catalog</h1>
       <v-row
         no-gutters
         class="mt-10"
@@ -116,7 +116,9 @@ export default {
     '$route.query.search': {
       immediate: true,
       async handler (value) {
+        console.log(value)
         this.sValue = value
+        console.log(this.sValue)
         this.getProducts(this.data.page)
       }
     }

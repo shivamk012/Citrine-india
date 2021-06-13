@@ -10,6 +10,8 @@ module.exports = (app) => {
     app.get('/login/:id',
     UserControllers.getCart)
 
+    app.get('/product/:pname', ProductControllers.productAndRelated)
+
     app.post('/admin/product/create', store.array('imageFiles', 12),
     ProductControllers.upload)
     app.get('/admin/product/:id', ProductControllers.edit)

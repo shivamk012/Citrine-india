@@ -57,3 +57,15 @@ exports.edit = async function (req, res) {
     })
   }
 }
+
+exports.productAndRelated = async function (req, res) {
+  try {
+    const product = await Products.findOne({name:req.params.pname})
+    console.log(product)
+    res.send(product)
+  } catch (error) {
+    res.status(400).send({
+      error: 'Server error! Kindly retry after some time.'
+    })
+  }
+}
