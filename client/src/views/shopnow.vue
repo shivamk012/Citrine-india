@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container>
-      <h2 class="text-center mt-4 mb-4">Title</h2>
+      <h2  class="text-center mt-4 mb-4">Title</h2>
       <v-divider></v-divider>
     </v-container>
     <v-container class="mt-12">
@@ -79,6 +79,8 @@
 export default {
   data () {
       return {
+      showAnimation: false,
+        
         items: [
           {
             src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/FrontC4.jpeg',

@@ -1,3 +1,4 @@
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
@@ -6,10 +7,11 @@ import Login from '../views/Login.vue'
 import ShopNow from '../views/shopnow.vue'
 import Tnc from '../views/Tnc.vue'
 import ShipNreturn from '../views/ShipNreturn.vue'
-import Catalog from '../views/Catalog.vue'
-import Payment from '../views/Payment.vue'
 import admin from "./admin"
 import GoToCart from '../views/Cart.vue'
+import PaySuccess from '../views/paymentsuccess.vue'
+import PayFailure from '../views/paymentfailure.vue'
+import Payment from '../views/payment.vue'
 
 Vue.use(VueRouter)
 
@@ -50,15 +52,21 @@ Vue.use(VueRouter)
     component: GoToCart
   },
   {
-    path: '/catalog',
-    name: 'catalog',
-    component: Catalog
-  },
-  {
-    path: ':user/cart/payments',
-    name: 'payment',
+    path:'/payment',
+    name : 'payment',
     component: Payment
   },
+  {
+    path:'/paymentsuccess',
+    name : 'paymentsuccess',
+    component: PaySuccess
+  },
+  {
+    path:'/paymentfailure',
+    name : 'paymentfailure',
+    component: PayFailure
+  },
+
   ...admin
 //   {
 //     path: '/songs/create',

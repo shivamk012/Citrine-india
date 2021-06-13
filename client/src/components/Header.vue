@@ -7,7 +7,10 @@
       flat
       app
     >
-      <v-toolbar-title class="white--text logo" @click="navigateTo({name:'home'})">
+      <v-toolbar-title 
+          class="white--text logo" 
+          @click="navigateTo({name:'home'})" 
+        >
         CITRINE-INDIA
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -15,6 +18,7 @@
         class="d-none d-sm-flex"
       >
         <v-btn
+          
           v-if="!$store.state.isUserLoggedin"
           depressed flat
           color="black"
