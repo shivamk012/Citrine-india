@@ -48,6 +48,8 @@ Vue.use(VueRouter)
     path:'/gotocart',
     name : 'gotocart',
     component: GoToCart
+  },
+  {
     path: '/catalog',
     name: 'catalog',
     component: Catalog
