@@ -44,6 +44,7 @@
               elevation="2"
               outlined
               block
+              @click="addToCart(displayProduct)"
               >
               Add to cart
             </v-btn>
@@ -77,6 +78,7 @@
 
 <script>
 import CatalogServices from '../services/catalogServices';
+import CartServices from '../services/cartServices';
 
 export default {
   data () {
@@ -101,7 +103,26 @@ export default {
           pname:this.displayProduct.name
         }
       })
-      
+    },
+    async addToCart (doc) {
+      if (!this.$store.state.isUserLoggedin) {
+        this.$router.push({name:'login'})
+      }
+
+      console.log('button pressed shopnow')
+
+      this.$store.dispatch('addToCart', {
+        product: doc,
+        quantity: 1
+      })
+
+      await CartServices.post({
+        customer: this.$store.state.user._id,
+        cart:{
+          productId: doc._id,
+          quantity: 1
+        }
+      })
     }
   },
   async mounted () {

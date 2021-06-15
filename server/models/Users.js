@@ -29,11 +29,11 @@ const UserSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  cart: [{productId:String, count:Number}], // Storing only the ids of the products purchased.
-  previousPurchase: [{productId:String, count:Number}],
+  // cart: [{productId:String, count:Number}], // Storing only the ids of the products purchased.
+  // previousPurchase: [{productId:String, count:Number}],
 })
 
 UserSchema.plugin(mongoosePaginate)
 
-const User = model("User", UserSchema);
-module.exports = User
+const Users = model("User", UserSchema);
+module.exports = Users

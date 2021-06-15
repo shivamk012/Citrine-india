@@ -25,7 +25,7 @@ exports.indexPaginated = async function (req, res) {
     const query = req.query.search 
     const page = req.query.page
     let searchObject = {};
-    console.log('reached')
+    // console.log('reached')
 
     if (query) {
       const re = new RegExp(`${query}.*`, "i");

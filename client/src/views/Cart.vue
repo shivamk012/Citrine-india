@@ -7,7 +7,7 @@
     color = "white"
     class = "black--text"
     depressed
-    @click = "navigateTo({name : 'home'})"
+    @click="navigateTo({name:'home'})"
   ></v-btn>
   <v-simple-table class="mt-10">
     <template>
@@ -67,85 +67,82 @@
 // import CatalogServices from '../services/catalogServices'
 export default {
   data () {
-      return {
-        selected: [],
-        headers: [
-          {
-            text: 'Product',
-            align: 'start',
-            sortable: false,
-            value: 'name',
-            width : '500px',
-          },
-          { text: 'Price', value: 'price' , sortable:false },
-          { text: 'Quantity', value: 'quantity' , sortable:false },
-          { text: 'Total', value: 'total' , sortable:false },
-        ],
-        products: [
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-            name: 'Item1',
-            price: 100
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-            name : 'Item2',
-            price : 200
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-            name : 'Item3',
-            price : 300
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-            name : 'Item4',
-            price : 400
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-            name : 'Item5',
-            price : 500
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-            name : 'Item6',
-            price : 500
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-            name : 'Item7',
-            price : 500
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-            name : 'Item8',
-            price : 500
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-            name : 'Item9',
-            price : 500
-          },
-          {
-            src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-            name : 'Item10',
-            price : 500
-          },
-        ],
-      }
-    },
-    methods : {
-      deleteitem() {
-          this.selected.forEach((gg)=>{
-              console.log(gg);
-          });
-           // this.selected.forEach(function(project) {
-           // this.projects.splice(project, 1);
-           //  });
-      this.selected = [];
+    return {
+      selected: [],
+      headers: [
+        {
+          text: 'Product',
+          align: 'start',
+          sortable: false,
+          value: 'name',
+          width : '500px',
+        },
+        { text: 'Price', value: 'price' , sortable:false },
+        { text: 'Quantity', value: 'quantity' , sortable:false },
+        { text: 'Total', value: 'total' , sortable:false },
+      ],
+      products: [
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          name: 'Item1',
+          price: 100
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          name : 'Item2',
+          price : 200
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          name : 'Item3',
+          price : 300
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          name : 'Item4',
+          price : 400
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          name : 'Item5',
+          price : 500
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          name : 'Item6',
+          price : 500
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          name : 'Item7',
+          price : 500
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          name : 'Item8',
+          price : 500
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          name : 'Item9',
+          price : 500
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
+          name : 'Item10',
+          price : 500
+        },
+      ],
     }
   },
+  methods : {
+    deleteitem() {
+      this.selected.forEach((gg)=>{
+        console.log(gg);
+      });
+      this.selected = [];
+    }
+  }
 }
 </script>
 

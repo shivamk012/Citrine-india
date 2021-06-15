@@ -13,6 +13,7 @@ export default new Vuex.Store({
         user: null,
         isUserLoggedin: false,
         isAdmin: false,
+        cart: [],
     },
     mutations:{
         setToken (state, token) {
@@ -31,6 +32,22 @@ export default new Vuex.Store({
             } else{
                 state.isAdmin = false
             }
+        },
+        addToCart (state, {product, quantity}) {
+
+            const productInCart = state.cart.find(item => {
+                return item.product._id === product._id
+            })
+
+            if( productInCart ) {
+                productInCart.quantity += quantity;
+                return;
+            }
+
+            state.cart.push({
+                product,
+                quantity
+            })
         }
     },
     actions: {
@@ -39,6 +56,14 @@ export default new Vuex.Store({
         },
         setUser ({commit}, token) {
             commit('setUser', token)
+        },
+        addToCart ({commit}, {product, quantity}) {
+            commit('addToCart', {product, quantity})
+        }
+    },
+    getters: {
+        cartItemCount: state => {
+            return state.cart.length;
         }
     }
 })

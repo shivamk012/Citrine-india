@@ -1,5 +1,6 @@
 
 const User = require('../models/Users')
+const Cart = require('../models/Cart')
 const UserServices = require('./UserAuthServices')
 const CLIENT_ID = '643638695088-abgs8j26a2s3so67gnroh5606g2lp8je.apps.googleusercontent.com'
 
@@ -28,6 +29,9 @@ module.exports = {
 
       const newUser = await User.create(data);
       const token = await UserServices.createToken(newUser._id)
+      const cart = await Cart.create({customer:newUser._id, cart:[]})
+      console.log('length reg',cart.cart.length)
+
       return {
         token,
         user: {
@@ -62,6 +66,8 @@ module.exports = {
       const userDoc = await User.findOne({
         email: payload.email
       });
+      const cart = await Cart.findOne({customer: userDoc._id})
+      // console.log('length login',cart.cart.length)
 
       if(!userDoc){
         return res.status(403).send({

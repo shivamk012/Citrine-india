@@ -52,12 +52,14 @@
             </v-btn>
 
             <v-spacer></v-spacer>
+              <!-- v-if="doc._id === cart" -->
 
             <v-btn
               color="orange lighten-2"
               text
+              @click="addToCart(doc)"
             >
-              Add to cart
+              Add To Cart
             </v-btn>
           </v-card-actions>
         </v-card>
@@ -76,9 +78,11 @@
 
 <script>
 import CatalogServices from '../services/catalogServices'
+import CartServices from '../services/cartServices'
 
 export default {
   data : ()=>({
+    cart: null,
     data: {
       docs: null,
       total: null,
@@ -87,6 +91,7 @@ export default {
       pages: null ,
     },
     length: null,
+    addedToCart: false
   }),
   async mounted (){
     this.getProducts(this.data.page)
@@ -98,6 +103,29 @@ export default {
     },
     navigateTo(route){
       this.$router.push(route)
+    },
+    async addToCart (doc) {
+      if (!this.$store.state.isUserLoggedin) {
+        this.$router.push({name:'login'})
+      }
+
+      console.log('button pressed')
+
+      this.$store.dispatch('addToCart', {
+        product: doc,
+        quantity: 1
+      })
+
+      await CartServices.post({
+        customer: this.$store.state.user._id,
+        cart:{
+          productId: doc._id,
+          quantity: 1
+        }
+      })
+      // this.cart = addCart.cart;
+      // this.$store.state.cart = addCart.cart.length;
+      // console.log(this.$store.state.cart)
     }
   }
 }

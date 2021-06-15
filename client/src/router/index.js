@@ -10,10 +10,10 @@ import ShipNreturn from '../views/ShipNreturn.vue'
 import Catalog from '../views/Catalog.vue'
 import ContactInfo from '../views/ContactInfo.vue'
 import admin from "./admin"
-import GoToCart from '../views/Cart.vue'
+import Cart from '../views/Cart.vue'
 import PaySuccess from '../views/paymentsuccess.vue'
 import PayFailure from '../views/paymentfailure.vue'
-import Payment from '../views/payment.vue'
+import Payment from '../views/Payment.vue'
 
 Vue.use(VueRouter)
 
@@ -59,9 +59,9 @@ Vue.use(VueRouter)
     component: ShipNreturn
   },
   {
-    path:'/gotocart',
-    name : 'gotocart',
-    component: GoToCart
+    path:'/:user/cart',
+    name : 'cart',
+    component: Cart
   },
   {
     path:'/payment',

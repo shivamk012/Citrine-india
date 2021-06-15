@@ -41,6 +41,25 @@
           Catalog
         </v-btn>
         
+        <v-tab
+          v-if="$store.state.isUserLoggedin"
+          @click="navigateTo({
+            name:'cart',
+            params:{
+              user:$store.state.user.name
+            }
+          })"
+        >
+          <v-badge
+            color="black"
+            :content="cartBadge"
+          >
+            <v-icon dark>
+              mdi-cart
+            </v-icon>
+          </v-badge>
+        </v-tab>
+        
         <v-menu
           open-on-hover
           offset-y
@@ -140,6 +159,7 @@
 </template>
 
 <script>
+
   export default {
     methods: {
       navigateTo (route) {
@@ -153,6 +173,7 @@
     },
     data: () => ({
       sideNav: false,
+      cartCount: null,
       menuItems: [
         {icon:'mdi-folder-open',title:'Collections'},
         {icon:'mdi-account',title:'Profile'},
@@ -161,7 +182,22 @@
       ],
       admins: ['Management','Settings'],
       cruds:['Create','Read','Update','Delete','mdi-delete'],
-    })
+    }),
+    watch: {
+      '$store.state.cart': {
+        immediate: true,
+        async handler (value) {
+          console.log(this.$store.state.cart)
+          console.log(value)
+          this.cartCount = value
+        }
+      }
+    },
+    computed:{
+      cartBadge: function () {
+        return this.$store.getters.cartItemCount
+      }
+    }
   }
 </script>
 

@@ -1,5 +1,6 @@
 const UserControllers = require('./controllers/UserControllers')
 const ProductControllers = require('./controllers/ProductControllers.js')
+const CartControllers = require('./controllers/CartControllers.js')
 const {store} = require('./middleware/multer')
 
 module.exports = (app) => {
@@ -7,8 +8,8 @@ module.exports = (app) => {
     UserControllers.register)
     app.post('/login',
     UserControllers.login)
-    app.get('/login/:id',
-    UserControllers.getCart)
+    // app.get('/login/:id',
+    // UserControllers.getCart)
 
     app.get('/product/:pname', ProductControllers.productAndRelated)
 
@@ -19,4 +20,7 @@ module.exports = (app) => {
 
     app.get('/admin/users', UserControllers.indexPaginated)
     app.get('/admin/users/:id', UserControllers.user)
+
+    app.post('/cart',
+    CartControllers.post)
 }
