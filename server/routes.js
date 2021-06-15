@@ -23,4 +23,6 @@ module.exports = (app) => {
 
     app.post('/cart',
     CartControllers.post)
+    app.delete('/cart/:userId/:productId',
+    CartControllers.delete)
 }

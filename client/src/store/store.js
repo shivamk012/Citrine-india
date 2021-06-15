@@ -48,6 +48,11 @@ export default new Vuex.Store({
                 product,
                 quantity
             })
+        },
+        removeProductFromCart (state, product) {
+            state.cart = state.cart.filter(item => {
+                return item.product._id !== product._id
+            })
         }
     },
     actions: {
@@ -59,6 +64,9 @@ export default new Vuex.Store({
         },
         addToCart ({commit}, {product, quantity}) {
             commit('addToCart', {product, quantity})
+        },
+        removeProductFromCart ({commit}, product) {
+            commit('removeProductFromCart', product)
         }
     },
     getters: {

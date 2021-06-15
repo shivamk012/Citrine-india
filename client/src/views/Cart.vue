@@ -1,14 +1,6 @@
 <template>
 <v-container>
   <h1>Your cart</h1>
-  <v-btn 
-    elevation="2"
-    large
-    color = "white"
-    class = "black--text"
-    depressed
-    @click="navigateTo({name:'home'})"
-  ></v-btn>
   <v-simple-table class="mt-10">
     <template>
       <thead>
@@ -20,42 +12,43 @@
       </thead>
       <tbody>
         <tr
-          v-for="item in products"
-          :key="item.name"
+          v-for="item in cartItems"
+          :key="item.product._id"
         >
           <td class="mb-3" style="height:100px;">
             <div class="mt-3 mb-3">
-                <v-row class="mt-1">
-                  <v-card
-                    width="120"
-                    flat
-                  >
-                      <v-img
-                          :src = "item.src"
-                          aspect-ratio = 1
-                      ></v-img>
-                  </v-card>
-                  <v-card
-                    width="150"
-                    flat
-                  >
-                      <v-card-text>
-                        <p class="grey--text text--darken-3">Item Name</p>
-                        <v-btn
-                            v-model = "selected"
-                            small
-                            color ="white"
-                            class ="black--text"
-                            depressed
-                            elevation="2"
-                            @click = deleteitem()
-                        >Delete</v-btn>
-                      </v-card-text>
-                  </v-card>
-                </v-row>
-              </div>
+              <v-row class="mt-1">
+                <v-card
+                  width="120"
+                  flat
+                >
+                  <v-img
+                    :src ="item.product.image[0]"
+                    aspect-ratio = 1
+                  ></v-img>
+                </v-card>
+                <v-card
+                  width="150"
+                  flat
+                >
+                    <v-card-text>
+                      <p class="grey--text text--darken-3">{{ item.product.name }}</p>
+                      <v-btn
+                          v-model = "selected"
+                          small
+                          color ="white"
+                          class ="black--text"
+                          depressed
+                          elevation="2"
+                          @click.prevent="removeItem(item.product)"
+                      >Delete</v-btn>
+                    </v-card-text>
+                </v-card>
+              </v-row>
+            </div>
           </td>
-          <td style="height:100px;">{{ item.price }}</td>
+          <td>{{ item.product.retailPrice }}</td>
+          <td>{{ item.quantity }}</td>
         </tr>
       </tbody>
     </template>
@@ -64,6 +57,7 @@
 </template>
 
 <script>
+import CartServices from '../services/cartServices';
 // import CatalogServices from '../services/catalogServices'
 export default {
   data () {
@@ -81,58 +75,6 @@ export default {
         { text: 'Quantity', value: 'quantity' , sortable:false },
         { text: 'Total', value: 'total' , sortable:false },
       ],
-      products: [
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          name: 'Item1',
-          price: 100
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          name : 'Item2',
-          price : 200
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          name : 'Item3',
-          price : 300
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          name : 'Item4',
-          price : 400
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          name : 'Item5',
-          price : 500
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          name : 'Item6',
-          price : 500
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          name : 'Item7',
-          price : 500
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          name : 'Item8',
-          price : 500
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          name : 'Item9',
-          price : 500
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg',
-          name : 'Item10',
-          price : 500
-        },
-      ],
     }
   },
   methods : {
@@ -141,6 +83,16 @@ export default {
         console.log(gg);
       });
       this.selected = [];
+    },
+    async removeItem(product) {
+      this.$store.dispatch('removeProductFromCart', product)
+      await CartServices.delete(product._id,this.$store.state.user._id)
+      console.log('done')
+    }
+  },
+  computed: {
+    cartItems: function () {
+      return this.$store.state.cart
     }
   }
 }
