@@ -11,9 +11,8 @@ import Catalog from '../views/Catalog.vue'
 import ContactInfo from '../views/ContactInfo.vue'
 import admin from "./admin"
 import Cart from '../views/Cart.vue'
-import PaySuccess from '../views/paymentsuccess.vue'
-import PayFailure from '../views/paymentfailure.vue'
-import Payment from '../views/Payment.vue'
+import Checkout from '../views/Checkout.vue'
+import PayResponse from '../views/paymentResponse' 
 
 Vue.use(VueRouter)
 
@@ -44,7 +43,7 @@ Vue.use(VueRouter)
     component : ShopNow,
   },
   {
-    path: '/catalog/:pname/contact',
+    path: '/cart/:name/contact',
     name: 'contactInfo',
     component : ContactInfo,
   },
@@ -64,19 +63,14 @@ Vue.use(VueRouter)
     component: Cart
   },
   {
-    path:'/payment',
-    name : 'payment',
-    component: Payment
+    path:'/cart/:name/contact/checkout',
+    name : 'checkout',
+    component: Checkout
   },
   {
-    path:'/paymentsuccess',
-    name : 'paymentsuccess',
-    component: PaySuccess
-  },
-  {
-    path:'/paymentfailure',
-    name : 'paymentfailure',
-    component: PayFailure
+    path:'/paymentResponse',
+    name : 'payResponse',
+    component: PayResponse
   },
 
   ...admin

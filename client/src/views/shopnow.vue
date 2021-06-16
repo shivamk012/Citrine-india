@@ -53,7 +53,7 @@
               color="black"
               class="white--text mt-3"
               block
-              @click="buynow"
+              @click="buynow(displayProduct)"
               >
               Buy Now
             </v-btn>
@@ -92,17 +92,27 @@ export default {
     navigateTo(route){
       this.$router.push(route);
     },
-    buynow(){
+    buynow(doc){
       if (!this.$store.state.isUserLoggedin) {
         this.$router.push({name:'login'})
       }
 
-      this.$router.push({
-        name:'contactInfo',
+      this.$store.dispatch('addToCart', {
+        product: doc,
+        quantity: 1
+      })
+      this.navigateTo({
+        name:'cart',
         params:{
-          pname:this.displayProduct.name
+          user:this.$store.state.user.name
         }
       })
+      // this.$router.push({
+      //   name:'contactInfo',
+      //   params:{
+      //     pname:this.displayProduct.name
+      //   }
+      // })
     },
     async addToCart (doc) {
       if (!this.$store.state.isUserLoggedin) {

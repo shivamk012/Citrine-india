@@ -14,6 +14,7 @@ export default new Vuex.Store({
         isUserLoggedin: false,
         isAdmin: false,
         cart: [],
+        contactInfo: null,
     },
     mutations:{
         setToken (state, token) {
@@ -53,6 +54,9 @@ export default new Vuex.Store({
             state.cart = state.cart.filter(item => {
                 return item.product._id !== product._id
             })
+        },
+        addContactInfo (state, info) {
+            state.contactInfo = info;
         }
     },
     actions: {
@@ -67,11 +71,28 @@ export default new Vuex.Store({
         },
         removeProductFromCart ({commit}, product) {
             commit('removeProductFromCart', product)
+        },
+        addContactInfo ({commit}, info) {
+            commit('addContactInfo',info)
         }
     },
     getters: {
         cartItemCount: state => {
             return state.cart.length;
+        },
+        cartTotal: (state) => {
+            let totalPrice = 0;
+            let totalQuantity = 0;
+
+            state.cart.forEach(item => {
+                totalPrice += item.product.retailPrice * item.quantity;
+                totalQuantity += item.quantity
+            })
+
+            return {totalPrice, totalQuantity}
+        },
+        contactInfo: state => {
+            return state.contactInfo;
         }
     }
 })
