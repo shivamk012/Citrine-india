@@ -1,8 +1,8 @@
 <template>
-    <v-form
-      id="payment_form"
-      action="https://test.payu.in/_payment"
-      method="post"
+    <form
+        id="payment-form"
+        action="https://test.payu.in/_payment"
+        method="post"
     >
         <v-container>
             <v-row>
@@ -12,6 +12,7 @@
                 >
                     <v-text-field
                     readonly
+                    name="udf5"
                     id="udf5"
                     value="citrine-india-payment"
                     v-show="false"
@@ -23,13 +24,13 @@
                 >
                     <v-text-field
                     readonly
-                    id="surl"
                     name="surl"
-                    value="http://localhost:8080/paymentResponse"
+                    id="surl"
+                    value="http://localhost:8081/paymentResponse"
                     v-show="false"
                     ></v-text-field>
                 </v-col>
-                 <v-col
+                    <v-col
                     cols="12"
                     
                 >
@@ -37,7 +38,7 @@
                     readonly
                     id="furl"
                     name="furl"
-                    value="http://localhost:8080/paymentResponse"
+                    value="http://localhost:8081/paymentResponse"
                     v-show="false"
                     ></v-text-field>
                 </v-col>
@@ -49,7 +50,7 @@
                     readonly
                     id="curl"
                     name="curl"
-                    value="http://localhost:8080/paymentResponse"
+                    value="http://localhost:8081/paymentResponse"
                     v-show="false"
                     ></v-text-field>
                 </v-col>
@@ -59,9 +60,10 @@
                 >
                     <v-text-field
                     readonly
+                    name="key"
                     id="key"
                     v-model="key"
-                    v-show="false"
+                    v-show="true"
                     ></v-text-field>
                 </v-col>
                 <v-col
@@ -70,6 +72,7 @@
                 >
                     <v-text-field
                     readonly
+                    name="txnid"
                     label="Transaction ID"
                     id="txnid"
                     v-model="orderId"
@@ -82,8 +85,10 @@
                 >
                     <v-text-field
                     readonly
+                    id="firstname"
+                    name="firstname"
                     label="Name"
-                    v-model='user.name'
+                    v-model='firstname'
                     outlined
                     ></v-text-field>
                 </v-col>
@@ -93,6 +98,8 @@
                 >
                     <v-text-field
                     readonly
+                    id="email"
+                    name="email"
                     label="Email"
                     v-model='user.email'
                     outlined
@@ -104,6 +111,8 @@
                 >
                     <v-text-field
                     readonly
+                    id="amount"
+                    name="amount"
                     label="Amount"
                     v-model='cartTotal.totalPrice'
                     outlined
@@ -115,6 +124,7 @@
                 >
                     <v-text-field
                     readonly
+                    name="productInfo"
                     id="productInfo"
                     v-model="cart"
                     v-show="false"
@@ -126,6 +136,8 @@
                 >
                     <v-text-field
                     readonly
+                    id="phone"
+                    name="phone"
                     label="Mobile Number"
                     v-model="contactInfo.phone"
                     outlined
@@ -137,6 +149,8 @@
                 >
                     <v-text-field
                     readonly
+                    id="address1"
+                    name="address1"
                     label="Address1"
                     v-model="contactInfo.address1"
                     outlined
@@ -147,6 +161,8 @@
                     
                 >
                     <v-text-field
+                    id="address2"
+                    name="address2"
                     readonly
                     label="Address2"
                     v-model="contactInfo.address2"
@@ -158,6 +174,8 @@
                     
                 >
                     <v-text-field
+                    id="city"
+                    name="city"
                     readonly
                     label="City"
                     v-model="contactInfo.city"
@@ -169,6 +187,8 @@
                     
                 >
                     <v-text-field
+                    id="state"
+                    name="state"
                     readonly
                     label="State"
                     v-model="contactInfo.state"
@@ -181,6 +201,8 @@
                 >
                     <v-text-field
                     readonly
+                    id="zipcode"
+                    name="zipcode"
                     label="Pin Code"
                     v-model="contactInfo.pinCode"
                     outlined
@@ -192,14 +214,24 @@
                 >
                     <v-text-field
                     readonly
+                    id="hash"
+                    name="hash"
                     label="Hash"
                     v-model="hash"
                     v-show="false"
                     ></v-text-field>
                 </v-col>
+                <v-col
+                    cols="12"
+                >
+                    <input
+                        type="submit"
+                        value="Submit"
+                        >
+                </v-col>
             </v-row>
         </v-container>
-    </v-form>
+    </form>
 </template>
 
 
@@ -208,21 +240,12 @@ import paymentServices from '../services/paymentServices'
     // import Hashgenerator from '../services/hashgenerator'   
     // import Paymentgateway from '../services/paymentgateway'
 export default {
-//   methods:{
-//     checkForm: function (e) {
-//       if (this.phoneNo) {
-//         return true;
-//       }
-
-//       this.errors = [];
-
-//       if (!this.phoneNo) {
-//         this.errors.push('Phone Number Required.');
-//       }
-
-//       e.preventDefault();
-//     }
-//   },
+  data: () => ({
+    orderId: null,
+    key: null,
+    hash: null,
+    firstname: null,
+  }),
   computed:{
     contactInfo: function () {
       return this.$store.getters.contactInfo
@@ -243,26 +266,28 @@ export default {
   },
   async mounted () {
       this.orderId = (await paymentServices.txnid()).data
-  }
-    // methods : {
-    //     async submit(){
-    //         let temp = {
-    //             key : "ays59b",
-    //             txnid : '23892392',
-    //             amount : '10',
-    //             productinfo : 'citrine-india-product',
-    //             firstname : this.$store.state.user.name,
-    //             email :     this.$store.state.user.email,
-    //             phone : this.phonenumber,
-    //             surl : 'http://localhost:8080/paymentsuccess',
-    //             furl : 'http://localhost:8080/paymentfailure',
-    //         };
-    //         let value = Hashgenerator.hashingvalue(temp);
-    //         let userDetails = Object.assign(temp , {hash : value});
-    //         console.log(userDetails);
-    //         let successresponse = await Paymentgateway.pay(userDetails);
-    //         console.log(successresponse);
-    //     }
-    // }
+      console.log(this.orderId)
+      let firstname = this.user.name.substr(0,this.user.name.indexOf(" "));
+      let payload = {
+        txnid: this.orderId,
+        amount: this.cartTotal.totalPrice,
+        productInfo: this.cart,
+        firstname,
+        email: this.user.email,
+        phone: this.contactInfo.phone,
+        udf5: 'citrine-india-payment', // particular to a payment
+        surl: "http://localhost:8081/paymentResponse",
+        furl: "http://localhost:8081/paymentResponse",
+        curl: "http://localhost:8081/paymentResponse",
+      }
+      console.log(payload)
+      const obj = (await paymentServices.hash(payload)).data;
+      this.hash = obj.hash
+      this.key = obj.key
+      this.firstname = firstname
+      console.log(payload, this.hash, this.key, this.firstname)
+      this.$store
+  },
+  
 }
 </script>
