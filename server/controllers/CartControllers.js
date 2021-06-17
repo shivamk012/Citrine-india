@@ -3,8 +3,9 @@ const Cart = require('../models/Cart')
 
 exports.post = async function (req, res) {
   try { 
-    let doc = await Cart.findOne({customer: req.body.customer})
-//   console.log(doc,'doc')
+    let doc = await Cart.findOne({customer: req.body.customer, active:true})
+    console.log(doc,'doc')
+    let exist = false
 
     if (!doc) {
     // console.log('req........',req.body)
@@ -15,9 +16,15 @@ exports.post = async function (req, res) {
     doc.cart = doc.cart.map(item => {
       if (item.productId === req.body.cart.productId) {
         item.quantity += 1
+        exist = true
       }
       return item
     })
+
+    if (!exist) {
+      doc.cart.push(req.body.cart)
+      exist = false
+    }
 
     await doc.save();
 //   await UserControllers.addCart(doc)
@@ -36,7 +43,7 @@ exports.delete = async function (req, res) {
   try { 
     const userId = req.params.userId;
     const productId = req.params.productId
-    let doc = await Cart.findOne({customer:userId});
+    let doc = await Cart.findOne({customer:userId, active:true});
     doc.cart = doc.cart.filter(item => {
       return item.productId != productId
     })
@@ -52,7 +59,7 @@ exports.delete = async function (req, res) {
 
 exports.quantityChange = async function (req, res) {
   try {
-    let doc = await Cart.findOne({customer: req.body.customer})
+    let doc = await Cart.findOne({customer: req.body.customer, active:true})
     doc.cart = doc.cart.map(item => {
       if (item.productId === req.body.productId) {
         item.quantity = req.body.quantity
@@ -65,5 +72,15 @@ exports.quantityChange = async function (req, res) {
       error: 'Server error! Kindly retry after some time.',
       addedToCart: false
     })
+  }
+}
+
+exports.setActiveFalse = async function (udf5) {
+  try {
+    let doc = Cart.findOne({_id: udf5})
+    doc.active = false
+    doc.save();
+  } catch (error) {
+    console.log(error)
   }
 }

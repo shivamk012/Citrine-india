@@ -3,13 +3,17 @@ require('dotenv').config();
 const reqpost = require('request')
 const key = process.env.MERCHANT_KEY ;
 const salt = process.env.MERCHANT_SALT ;
+const Cart = require('../models/Cart')
+const CartControllers = require('./CartControllers')
 
 module.exports = {
   async txnid (req, res) {
     try {
+      console.log(req.params.id)
+      const doc = await Cart.findOne({customer: req.params.id, active:true})
       const txnid =  crypto.randomBytes(8).toString('hex');
-      
-      res.send(txnid)
+      console.log(doc)
+      res.send({txnid, udf5:doc._id})
     } catch (err) {
       res.status(400).send({
         error: 'Server error! Kindly retry after some time.'
@@ -38,22 +42,22 @@ module.exports = {
   },
   async response (req, res) {
     try {
-      var verified = 'No';
-      var txnid = req.body.txnid;
-      var amount = req.body.amount;
-      var productinfo = req.body.productinfo;
-      var firstname = req.body.firstname;
-      var email = req.body.email;
-      var udf5 = req.body.udf5;
-      var mihpayid = req.body.mihpayid;
-      var status = req.body.status;
-      var resphash = req.body.hash;
-      var additionalcharges = "";
+      const verified = 'No';
+      const txnid = req.body.txnid;
+      const amount = req.body.amount;
+      const productinfo = req.body.productinfo;
+      const firstname = req.body.firstname;
+      const email = req.body.email;
+      const udf5 = req.body.udf5;
+      const mihpayid = req.body.mihpayid;
+      const status = req.body.status;
+      const resphash = req.body.hash;
+      const additionalcharges = "";
       //Calculate response hash to verify	
-      var keyString 		=  	key+'|'+txnid+'|'+amount+'|'+productinfo+'|'+firstname+'|'+email+'|||||'+udf5+'|||||';
-      var keyArray 		= 	keyString.split('|');
-      var reverseKeyArray	= 	keyArray.reverse();
-      var reverseKeyString=	salt+'|'+status+'|'+reverseKeyArray.join('|');
+      const keyString 		=  	key+'|'+txnid+'|'+amount+'|'+productinfo+'|'+firstname+'|'+email+'|||||'+udf5+'|||||';
+      const keyArray 		= 	keyString.split('|');
+      const reverseKeyArray	= 	keyArray.reverse();
+      const reverseKeyString=	salt+'|'+status+'|'+reverseKeyArray.join('|');
       //check for presence of additionalcharges parameter in response.
       if (typeof req.body.additionalCharges !== 'undefined') {
         additionalcharges = req.body.additionalCharges;
@@ -61,11 +65,11 @@ module.exports = {
         reverseKeyString=	additionalcharges+'|'+reverseKeyString;
       }
       //Generate Hash
-      var cryp = crypto.createHash('sha512');	
+      const cryp = crypto.createHash('sha512');	
       cryp.update(reverseKeyString);
-      var calchash = cryp.digest('hex');
+      const calchash = cryp.digest('hex');
       
-      var msg = 'Payment failed for Hash not verified...<br />Check Console Log for full response...';
+      const msg = 'Payment failed for Hash not verified...<br />Check Console Log for full response...';
       //Comapre status and hash. Hash verification is mandatory.
       if(calchash == resphash)
         msg = 'Transaction Successful and Hash Verified...<br />Check Console Log for full response...';
@@ -73,17 +77,17 @@ module.exports = {
       console.log(req.body);
       
       //Verify Payment routine to double check payment
-      var command = "verify_payment";
+      const command = "verify_payment";
       
-      var hash_str = key  + '|' + command + '|' + txnid + '|' + salt ;
-      var vcryp = crypto.createHash('sha512');	
+      const hash_str = key  + '|' + command + '|' + txnid + '|' + salt ;
+      const vcryp = crypto.createHash('sha512');	
       vcryp.update(hash_str);
-      var vhash = vcryp.digest('hex');
+      const vhash = vcryp.digest('hex');
       
-      var vdata='';
-      var details='';
+      const vdata='';
+      const details='';
       
-      var options = {
+      const options = {
         method: 'POST',
         uri: 'https://test.payu.in/merchant/postservice.php?form=2',
         form: {
@@ -101,7 +105,7 @@ module.exports = {
         .on('response', function (resp) {
           console.log('STATUS:'+resp.statusCode);
           resp.setEncoding('utf8');
-          resp.on('data', function (chunk) {
+          resp.on('data',async function (chunk) {
             vdata = JSON.parse(chunk);	
             if(vdata.status == '1')
             {
@@ -111,7 +115,17 @@ module.exports = {
                 verified ="Yes";
               else
                 verified = "No";
-              console.log(verified)
+              // console.log(verified)
+              await CartControllers.setActiveFalse(udf5)
+              await TransactionControllers.index({
+                mihpayid,
+                status,
+                udf5,
+                mode,
+                txnid,
+                amount,
+                verified
+              }) // add shipping details
               res.render('response', {Verified: verified, data: req.body})
             }
           });

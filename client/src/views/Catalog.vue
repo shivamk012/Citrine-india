@@ -120,7 +120,7 @@ export default {
         customer: this.$store.state.user._id,
         cart:{
           productId: doc._id,
-          quantity: 1
+          quantity: 1,
         }
       })
       // this.cart = addCart.cart;

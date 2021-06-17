@@ -30,7 +30,7 @@ module.exports = (app) => {
     app.delete('/cart/:userId/:productId',
     CartControllers.delete)
 
-    app.get('/payment/txnid', PaymentControllers.txnid)
+    app.get('/payment/txnid/:id', PaymentControllers.txnid)
     app.post('/payment/hash', PaymentControllers.hash)
     app.post('/paymentResponse', PaymentControllers.response)
 

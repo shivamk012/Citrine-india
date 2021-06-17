@@ -1,8 +1,8 @@
 import Api from '../services/api'
 
 export default{
-  txnid () {
-    return Api().get('payment/txnid')
+  txnid (id) {
+    return Api().get(`payment/txnid/${id}`)
   },
   hash (payload) {
     console.log('payload', payload)
