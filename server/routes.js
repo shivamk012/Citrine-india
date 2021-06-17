@@ -2,6 +2,7 @@ const UserControllers = require('./controllers/UserControllers')
 const ProductControllers = require('./controllers/ProductControllers.js')
 const CartControllers = require('./controllers/CartControllers.js')
 const PaymentControllers = require('./controllers/PaymentControllers.js')
+const CollectionControllers = require('./controllers/CollectionControllers.js')
 const {store} = require('./middleware/multer')
 
 module.exports = (app) => {
@@ -24,10 +25,14 @@ module.exports = (app) => {
 
     app.post('/cart',
     CartControllers.post)
+    app.post('/cart/quantityChange',
+    CartControllers.quantityChange)
     app.delete('/cart/:userId/:productId',
     CartControllers.delete)
 
     app.get('/payment/txnid', PaymentControllers.txnid)
     app.post('/payment/hash', PaymentControllers.hash)
     app.post('/paymentResponse', PaymentControllers.response)
+
+    app.get('/collection/all', CollectionControllers.all)
 }

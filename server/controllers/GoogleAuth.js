@@ -39,6 +39,7 @@ module.exports = {
           role: newUser.role,
           imageUrl :newUser.imageUrl,
           _id: newUser._id,
+          email: newUser.email,
         }
       }
       // If request specified a G Suite domain:

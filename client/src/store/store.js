@@ -57,6 +57,13 @@ export default new Vuex.Store({
         },
         addContactInfo (state, info) {
             state.contactInfo = info;
+        },
+        quantityChange (state, {_id, quantity}) {
+            const productInCart = state.cart.find(item => {
+                return item.product._id === _id
+            })
+
+            productInCart.quantity = quantity
         }
     },
     actions: {
@@ -74,6 +81,9 @@ export default new Vuex.Store({
         },
         addContactInfo ({commit}, info) {
             commit('addContactInfo',info)
+        },
+        quantityChange ({commit}, {_id, quantity}) {
+            commit('quantityChange', {_id, quantity})
         }
     },
     getters: {

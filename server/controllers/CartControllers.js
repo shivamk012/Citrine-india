@@ -8,16 +8,17 @@ exports.post = async function (req, res) {
 
     if (!doc) {
     // console.log('req........',req.body)
-    let doc = await Cart.create(req.body)
-    res.send(doc)
+      let doc = await Cart.create(req.body)
+      res.send(doc)
+      return;
     }
-    doc.cart.forEach(element => {
-      if (element.productId === req.body.cart) {
-        res.send({message:'Product alerady in the cart'})
+    doc.cart = doc.cart.map(item => {
+      if (item.productId === req.body.cart.productId) {
+        item.quantity += 1
       }
-    });
+      return item
+    })
 
-    doc.cart.push(req.body.cart)
     await doc.save();
 //   await UserControllers.addCart(doc)
     res.send(doc)
@@ -35,21 +36,34 @@ exports.delete = async function (req, res) {
   try { 
     const userId = req.params.userId;
     const productId = req.params.productId
-    console.log(userId, productId)
     let doc = await Cart.findOne({customer:userId});
-    console.log('find', doc)
     doc.cart = doc.cart.filter(item => {
-      console.log(item)
       return item.productId != productId
     })
-    console.log('cart', doc.cart)
     await doc.save();
-    console.log('doc', doc)
   } catch (error) {
     console.log(error)
     res.status(400).send({
-    error: 'Server error! Kindly retry after some time.',
-    addedToCart: false
+      error: 'Server error! Kindly retry after some time.',
+      addedToCart: false
+    })
+  }
+}
+
+exports.quantityChange = async function (req, res) {
+  try {
+    let doc = await Cart.findOne({customer: req.body.customer})
+    doc.cart = doc.cart.map(item => {
+      if (item.productId === req.body.productId) {
+        item.quantity = req.body.quantity
+      }
+      return item
+    })
+    await doc.save();
+  } catch (error) {
+    res.status(400).send({
+      error: 'Server error! Kindly retry after some time.',
+      addedToCart: false
     })
   }
 }

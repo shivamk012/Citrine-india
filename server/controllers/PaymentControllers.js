@@ -112,7 +112,7 @@ module.exports = {
               else
                 verified = "No";
               console.log(verified)
-              // res.render()
+              res.render('response', {Verified: verified, data: req.body})
             }
           });
         })

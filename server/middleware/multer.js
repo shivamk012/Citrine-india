@@ -1,5 +1,6 @@
 require('dotenv').config();
 const multer = require('multer')
+const path = require('path')
 const fs = require('fs')
 const S3 = require('aws-sdk/clients/s3')
 
@@ -22,6 +23,7 @@ function uploadFile(files) {
     }
 
     resultArray.push(s3.upload(uploadParams).promise())
+    fs.unlinkSync(file.path); // Empty uplaod folder
     // console.log('single', result)
     
   })

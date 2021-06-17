@@ -48,7 +48,15 @@
               </div>
             </td>
             <td>{{ item.product.retailPrice }}</td>
-            <td>{{ item.quantity }}</td>
+            <td>
+              <v-text-field
+                v-model="item.quantity"
+                class="text-center"
+                @change="quantityChange(item.product._id, item.quantity)"
+                outlined
+              >
+              </v-text-field>
+            </td>
             <td>{{ item.product.retailPrice*item.quantity }}</td>
           </tr>
         </tbody>
@@ -93,12 +101,6 @@ export default {
     }
   },
   methods : {
-    deleteitem() {
-      this.selected.forEach((gg)=>{
-        console.log(gg);
-      });
-      this.selected = [];
-    },
     async removeItem(product) {
       this.$store.dispatch('removeProductFromCart', product)
       await CartServices.delete(product._id,this.$store.state.user._id)
@@ -106,6 +108,10 @@ export default {
     },
     navigateTo (route) {
       this.$router.push(route)
+    },
+    async quantityChange (_id, quantity) {
+      this.$store.dispatch('quantityChange',{_id, quantity})
+      await CartServices.quantityChange({productId:_id, quantity, customer:this.$store.state.user._id})
     }
   },
   computed: {
@@ -116,6 +122,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.v-text-field{
+  width: 50px;
+}
 </style>

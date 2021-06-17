@@ -1,11 +1,13 @@
 // const Uploads = require('../models/upload')
 const { uploadFile } = require('../middleware/multer');
 const Products = require('../models/Products');
+const CollectionControllers = require('./CollectionControllers')
 // const fs = require('fs');
 // const { resolveSoa } = require('dns');
 
 exports.upload = async function (req, res) {
   try {
+    console.log('in pC')
     const files = req.files;
     let data = JSON.parse((JSON.parse(JSON.stringify(req.body))).payload) // find another way
     const result = await uploadFile(files)
@@ -13,7 +15,9 @@ exports.upload = async function (req, res) {
     // console.log('data')
     // console.log(data)
     await Products.create(data)
-    console.log('created')
+    const {_id, collections} = await Products.findOne({name: data.name});
+    console.log('payC',_id, collections)
+    await CollectionControllers.addProduct({_id, collections})
     res.json({success:true})
   } catch (error) {
     return res.status(401).json({ success: false, message: `${error}` });

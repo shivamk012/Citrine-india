@@ -2,14 +2,13 @@
 const { model, Schema } = require("mongoose");
 // const mongoosePaginate = require("mongoose-paginate")
 
-const cartSchema = new Schema({
-  customer: {type: String},
-  cart: [{productId:String, quantity: {type:Number, default:1}}],
-  active: {type: Boolean}
+const collectionSchema = new Schema({
+  name: {type: String},
+  products: [{type:String}], // productId belonging to this collection 
 //   previousPurchase: [{type: Schema.Types.ObjectId, ref:'Transactions'}],
 })
 
 // productSchema.plugin(mongoosePaginate)
 
-const Cart = model("Cart", cartSchema);
-module.exports = Cart
+const Collections = model("Collections", collectionSchema);
+module.exports = Collections

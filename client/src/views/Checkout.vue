@@ -63,7 +63,7 @@
                     name="key"
                     id="key"
                     v-model="key"
-                    v-show="true"
+                    v-show="false"
                     ></v-text-field>
                 </v-col>
                 <v-col
@@ -237,8 +237,7 @@
 
 <script>
 import paymentServices from '../services/paymentServices'
-    // import Hashgenerator from '../services/hashgenerator'   
-    // import Paymentgateway from '../services/paymentgateway'
+   
 export default {
   data: () => ({
     orderId: null,
@@ -286,7 +285,7 @@ export default {
       this.key = obj.key
       this.firstname = firstname
       console.log(payload, this.hash, this.key, this.firstname)
-      this.$store
+      console.log(this.$store.state.user)
   },
   
 }
