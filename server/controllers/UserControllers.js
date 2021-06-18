@@ -76,6 +76,18 @@ module.exports = {
       })
     }
   },
+  async setTransaction (id, email) {
+    try {
+      let user = await User.findOne({email})
+      user.previousPurchase.push(id)
+      await user.save();
+      console.log('user ',user)
+    } catch (error) {
+      res.status(400).send({
+        error: 'Server error! Kindly retry after some time.'
+      })
+    }
+  },
   // async addCart (payload) {
   //   try {
   //     const id_token = Object.keys(JSON.parse(JSON.stringify(req.body)))[0];

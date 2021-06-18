@@ -5,6 +5,7 @@ exports.post = async function (req, res) {
   try { 
     let doc = await Cart.findOne({customer: req.body.customer, active:true})
     console.log(doc,'doc')
+    console.log(req.body.cart)
     let exist = false
 
     if (!doc) {
@@ -13,13 +14,15 @@ exports.post = async function (req, res) {
       res.send(doc)
       return;
     }
-    doc.cart = doc.cart.map(item => {
-      if (item.productId === req.body.cart.productId) {
-        item.quantity += 1
-        exist = true
-      }
-      return item
-    })
+    if (doc.cart !== []) {
+      doc.cart = doc.cart.map(item => {
+        if (item.productId === req.body.cart.productId) {
+          item.quantity += 1
+          exist = true
+        }
+        return item
+      })
+    }
 
     if (!exist) {
       doc.cart.push(req.body.cart)
@@ -77,9 +80,25 @@ exports.quantityChange = async function (req, res) {
 
 exports.setActiveFalse = async function (udf5) {
   try {
-    let doc = Cart.findOne({_id: udf5})
+    let doc = await Cart.findOne({_id: udf5})
+    console.log(doc)
     doc.active = false
-    doc.save();
+    await doc.save();
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+exports.isActive = async function (req, res) {
+  try {
+    let doc = await Cart.find({customer: req.params.id});
+    let activeCart = false;
+    doc.forEach(item => {
+      if (item.active) {
+        activeCart = true
+      }
+    })
+    res.send({active: activeCart})
   } catch (error) {
     console.log(error)
   }

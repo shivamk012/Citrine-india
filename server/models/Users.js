@@ -30,7 +30,7 @@ const UserSchema = new Schema({
     default: Date.now,
   },
   // cart: [{productId:String, count:Number}], // Storing only the ids of the products purchased.
-  // previousPurchase: [{productId:String, count:Number}],
+  previousPurchase: [{type: String}],
 })
 
 UserSchema.plugin(mongoosePaginate)

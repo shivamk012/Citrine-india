@@ -4,7 +4,13 @@ const { model, Schema } = require("mongoose");
 
 const cartSchema = new Schema({
   customer: {type: String},
-  cart: [{productId:String, quantity: {type:Number, default:1}}],
+  cart: [{
+    productId: String,
+    quantity: {
+      type:Number,
+      default:1
+    }
+  }],
   active: {type: Boolean, default:true}
 //   previousPurchase: [{type: Schema.Types.ObjectId, ref:'Transactions'}],
 })

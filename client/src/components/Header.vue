@@ -165,9 +165,8 @@
         this.$router.push(route)
       },
       logout(){
+        this.$store.dispatch('logout')
         this.$router.push({name:'home'})
-        this.$store.dispatch('setToken', null)
-        this.$store.dispatch('setUser', null)
       }
     },
     data: () => ({

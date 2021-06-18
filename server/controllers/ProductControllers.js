@@ -15,10 +15,10 @@ exports.upload = async function (req, res) {
     // console.log('data')
     // console.log(data)
     await Products.create(data)
-    const {_id, collections} = await Products.findOne({name: data.name});
-    console.log('payC',_id, collections)
-    await CollectionControllers.addProduct({_id, collections})
-    res.json({success:true})
+    const { _id, collections } = await Products.findOne({ name: data.name });
+    console.log('payC', _id, collections)
+    await CollectionControllers.addProduct({ _id, collections })
+    res.json({ success: true })
   } catch (error) {
     return res.status(401).json({ success: false, message: `${error}` });
   }
@@ -26,7 +26,7 @@ exports.upload = async function (req, res) {
 
 exports.indexPaginated = async function (req, res) {
   try {
-    const query = req.query.search 
+    const query = req.query.search
     const page = req.query.page
     let searchObject = {};
     // console.log('reached')
@@ -35,7 +35,7 @@ exports.indexPaginated = async function (req, res) {
       const re = new RegExp(`${query}.*`, "i");
       re.ignoreCase = true;
       searchObject = {
-        $or: [{ name: re }, { collections: re }, { category:re }],
+        $or: [{ name: re }, { collections: re }, { category: re }],
       };
     }
 
@@ -44,7 +44,7 @@ exports.indexPaginated = async function (req, res) {
       limit: 6,
     });
     // console.log(pData)
-    res.json({success:true, data: pData})
+    res.json({ success: true, data: pData })
   } catch (error) {
     return res.status(401).json({ success: false, message: `${error}` });
   }
@@ -52,7 +52,7 @@ exports.indexPaginated = async function (req, res) {
 
 exports.edit = async function (req, res) {
   try {
-    const product = await Products.findOne({_id:req.params.id})
+    const product = await Products.findOne({ _id: req.params.id })
     console.log(product)
     res.send(product)
   } catch (error) {
@@ -64,12 +64,37 @@ exports.edit = async function (req, res) {
 
 exports.productAndRelated = async function (req, res) {
   try {
-    const product = await Products.findOne({name:req.params.pname})
+    const product = await Products.findOne({ name: req.params.pname })
     console.log(product)
     res.send(product)
   } catch (error) {
     res.status(400).send({
       error: 'Server error! Kindly retry after some time.'
     })
+  }
+}
+
+exports.getCartItems = async function (cartArray) {
+  try {
+    const cartIds = cartArray.map(item => {
+      return item.productId
+    })
+    console.log(cartIds)
+    let doc = await Products.find({ _id: { $in: cartIds } });
+    console.log(doc)
+    doc = doc.map(product => {
+      let quantity = 1;
+      cartArray.forEach(element => {
+        if (element.productId == product._id) {
+          console.log(element.productId,product._id,element.quantity)
+          quantity = element.quantity
+        }
+      })
+      return {product, quantity}
+    })
+    console.log(doc)
+    return doc
+  } catch (error) {
+    console.log(error)
   }
 }

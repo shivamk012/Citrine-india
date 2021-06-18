@@ -64,6 +64,17 @@ export default new Vuex.Store({
             })
 
             productInCart.quantity = quantity
+        },
+        setCart (state, cart) {
+            state.cart = cart;
+        },
+        logout (state) {
+            state.token =  null;
+            state.user = null;
+            state.isUserLoggedin = false;
+            state.isAdmin = false;
+            state.cart = [];
+            state.contactInfo = null;
         }
     },
     actions: {
@@ -84,6 +95,12 @@ export default new Vuex.Store({
         },
         quantityChange ({commit}, {_id, quantity}) {
             commit('quantityChange', {_id, quantity})
+        },
+        setCart ({commit}, cart) {
+            commit('setCart', cart)
+        },
+        logout ({commit}) {
+            commit('logout')
         }
     },
     getters: {

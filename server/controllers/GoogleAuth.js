@@ -2,6 +2,7 @@
 const User = require('../models/Users')
 const Cart = require('../models/Cart')
 const UserServices = require('./UserAuthServices')
+const ProductControllers = require('./ProductControllers')
 const CLIENT_ID = '643638695088-abgs8j26a2s3so67gnroh5606g2lp8je.apps.googleusercontent.com'
 
 module.exports = {
@@ -40,7 +41,8 @@ module.exports = {
           imageUrl :newUser.imageUrl,
           _id: newUser._id,
           email: newUser.email,
-        }
+        },
+        cart: [],
       }
       // If request specified a G Suite domain:
       // const domain = payload['hd'];
@@ -67,7 +69,8 @@ module.exports = {
       const userDoc = await User.findOne({
         email: payload.email
       });
-      const cart = await Cart.findOne({customer: userDoc._id})
+      let doc = await Cart.findOne({customer: userDoc._id, active:true})
+      doc = await ProductControllers.getCartItems(doc.cart)
       // console.log('length login',cart.cart.length)
 
       if(!userDoc){
@@ -87,6 +90,7 @@ module.exports = {
       return {
         token,
         user: data,
+        cart: doc,
       }
       // If request specified a G Suite domain:
       // const domain = payload['hd'];

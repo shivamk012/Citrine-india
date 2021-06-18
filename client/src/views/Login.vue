@@ -66,7 +66,9 @@ export default {
           const response = (await AuthenticationServices.login(id_token)).data
           this.$store.dispatch('setToken', response.token)
           this.$store.dispatch('setUser', response.user)
-          window.history.go(-1);
+          this.$store.dispatch('setCart', response.cart)
+          // window.history.go(-1); 
+          this.navigateTo({name:'home'})
         })
         .catch(error => {
           console.log('error', error)

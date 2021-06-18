@@ -4,7 +4,8 @@ const reqpost = require('request')
 const key = process.env.MERCHANT_KEY ;
 const salt = process.env.MERCHANT_SALT ;
 const Cart = require('../models/Cart')
-const CartControllers = require('./CartControllers')
+// const CartControllers = require('./CartControllers')
+const TransactionControllers = require('./TransactionControllers')
 
 module.exports = {
   async txnid (req, res) {
@@ -42,7 +43,7 @@ module.exports = {
   },
   async response (req, res) {
     try {
-      const verified = 'No';
+      let verified = 'No';
       const txnid = req.body.txnid;
       const amount = req.body.amount;
       const productinfo = req.body.productinfo;
@@ -69,7 +70,7 @@ module.exports = {
       cryp.update(reverseKeyString);
       const calchash = cryp.digest('hex');
       
-      const msg = 'Payment failed for Hash not verified...<br />Check Console Log for full response...';
+      let msg = 'Payment failed for Hash not verified...<br />Check Console Log for full response...';
       //Comapre status and hash. Hash verification is mandatory.
       if(calchash == resphash)
         msg = 'Transaction Successful and Hash Verified...<br />Check Console Log for full response...';
@@ -84,8 +85,8 @@ module.exports = {
       vcryp.update(hash_str);
       const vhash = vcryp.digest('hex');
       
-      const vdata='';
-      const details='';
+      let vdata='';
+      let details='';
       
       const options = {
         method: 'POST',
@@ -116,15 +117,20 @@ module.exports = {
               else
                 verified = "No";
               // console.log(verified)
-              await CartControllers.setActiveFalse(udf5)
               await TransactionControllers.index({
                 mihpayid,
                 status,
                 udf5,
-                mode,
+                mode: req.body.mode,
                 txnid,
                 amount,
-                verified
+                verified,
+                address1: req.body.address1,
+                address2: req.body.address2,
+                city: req.body.city,
+                state: req.body.state,
+                pincode: req.body.zipcode,
+                email,
               }) // add shipping details
               res.render('response', {Verified: verified, data: req.body})
             }
@@ -134,6 +140,7 @@ module.exports = {
           console.log(err);
         });
     } catch (error) {
+      console.log(error)
       res.status(400).send({
         error: 'Server error! Kindly retry after some time.'
       })

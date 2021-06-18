@@ -29,6 +29,8 @@ module.exports = (app) => {
     CartControllers.quantityChange)
     app.delete('/cart/:userId/:productId',
     CartControllers.delete)
+    app.get('/cart/active/:id',
+    CartControllers.isActive)
 
     app.get('/payment/txnid/:id', PaymentControllers.txnid)
     app.post('/payment/hash', PaymentControllers.hash)
