@@ -119,8 +119,6 @@ export default {
         this.$router.push({name:'login'})
       }
 
-      console.log('button pressed shopnow')
-
       this.$store.dispatch('addToCart', {
         product: doc,
         quantity: 1

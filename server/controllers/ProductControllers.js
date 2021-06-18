@@ -1,5 +1,5 @@
 // const Uploads = require('../models/upload')
-const { uploadFile } = require('../middleware/multer');
+const { uploadFile, deleteFile } = require('../middleware/multer');
 const Products = require('../models/Products');
 const CollectionControllers = require('./CollectionControllers')
 // const fs = require('fs');
@@ -7,16 +7,12 @@ const CollectionControllers = require('./CollectionControllers')
 
 exports.upload = async function (req, res) {
   try {
-    console.log('in pC')
     const files = req.files;
     let data = JSON.parse((JSON.parse(JSON.stringify(req.body))).payload) // find another way
     const result = await uploadFile(files)
     data.image = result
-    // console.log('data')
-    // console.log(data)
     await Products.create(data)
     const { _id, collections } = await Products.findOne({ name: data.name });
-    console.log('payC', _id, collections)
     await CollectionControllers.addProduct({ _id, collections })
     res.json({ success: true })
   } catch (error) {
@@ -29,7 +25,6 @@ exports.indexPaginated = async function (req, res) {
     const query = req.query.search
     const page = req.query.page
     let searchObject = {};
-    // console.log('reached')
 
     if (query) {
       const re = new RegExp(`${query}.*`, "i");
@@ -43,17 +38,15 @@ exports.indexPaginated = async function (req, res) {
       page,
       limit: 6,
     });
-    // console.log(pData)
     res.json({ success: true, data: pData })
   } catch (error) {
     return res.status(401).json({ success: false, message: `${error}` });
   }
 }
 
-exports.edit = async function (req, res) {
+exports.get = async function (req, res) {
   try {
     const product = await Products.findOne({ _id: req.params.id })
-    console.log(product)
     res.send(product)
   } catch (error) {
     res.status(400).send({
@@ -65,7 +58,6 @@ exports.edit = async function (req, res) {
 exports.productAndRelated = async function (req, res) {
   try {
     const product = await Products.findOne({ name: req.params.pname })
-    console.log(product)
     res.send(product)
   } catch (error) {
     res.status(400).send({
@@ -79,22 +71,45 @@ exports.getCartItems = async function (cartArray) {
     const cartIds = cartArray.map(item => {
       return item.productId
     })
-    console.log(cartIds)
     let doc = await Products.find({ _id: { $in: cartIds } });
-    console.log(doc)
     doc = doc.map(product => {
       let quantity = 1;
       cartArray.forEach(element => {
         if (element.productId == product._id) {
-          console.log(element.productId,product._id,element.quantity)
           quantity = element.quantity
         }
       })
       return {product, quantity}
     })
-    console.log(doc)
     return doc
   } catch (error) {
     console.log(error)
+  }
+}
+
+exports.update = async function (req, res) {
+  try {
+    const files = req.files;
+    let data = JSON.parse((JSON.parse(JSON.stringify(req.body))).payload) // find another way
+    const result = await uploadFile(files)
+    result.forEach(item => {
+      data.image.push(item)
+    })
+    const { _id, collections } = await Products.findOneAndUpdate({_id: req.params.id}, data)
+    await CollectionControllers.addProduct({ _id, collections })
+    res.json({ success: true })
+  } catch (error) {
+    return res.status(401).json({ success: false, message: `${error}` });
+  }
+}
+
+exports.deleteImage = function (req, res) {
+  try {
+    const keys = req.body.keys;
+    keys.forEach(async key => {
+      await deleteFile(key)
+    })
+  } catch (error) {
+    return res.status(401).json({ success: false, message: `${error}` });
   }
 }

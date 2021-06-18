@@ -185,8 +185,6 @@
       '$store.state.cart': {
         immediate: true,
         async handler (value) {
-          console.log(this.$store.state.cart)
-          console.log(value)
           this.cartCount = value
         }
       }

@@ -25,8 +25,8 @@ exports.all = async function (req, res) {
 
 exports.addProduct = function (data) {
   try {
-    console.log(data)
     data.collections.forEach(async element => {
+      if (element === "") {return}
       await Collection.findOne({name: element}, async function(err, result){
         if(err){
           console.log(err)
@@ -37,17 +37,13 @@ exports.addProduct = function (data) {
               name: element,
               products: [data._id]
             })
-            console.log(res)
             return;
           }
-          console.log('result', result)
           result.products.push(data._id)
           result.save();
-          console.log(data._id)
         }
       })
     });
-    // console.log(res)
   } catch (error) {
     console.log(error)
     res.status(400).send({

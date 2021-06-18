@@ -5,7 +5,6 @@ export default{
     return Api().get(`payment/txnid/${id}`)
   },
   hash (payload) {
-    console.log('payload', payload)
     return Api().post('payment/hash', payload)
   },
   payu (payload) {

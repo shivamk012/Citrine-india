@@ -116,9 +116,7 @@ export default {
     '$route.query.search': {
       immediate: true,
       async handler (value) {
-        console.log(value)
         this.sValue = value
-        console.log(this.sValue)
         this.getProducts(this.data.page)
       }
     }
@@ -126,7 +124,6 @@ export default {
   methods:{
     async getProducts (page) {
       this.data = (await CatalogServices.index(this.sValue, page)).data.data
-      console.log(this.data)
       this.length = this.data.pages
       
     },

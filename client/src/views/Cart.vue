@@ -104,7 +104,6 @@ export default {
     async removeItem(product) {
       this.$store.dispatch('removeProductFromCart', product)
       await CartServices.delete(product._id,this.$store.state.user._id)
-      console.log('done')
     },
     navigateTo (route) {
       this.$router.push(route)

@@ -4,12 +4,9 @@ const Cart = require('../models/Cart')
 exports.post = async function (req, res) {
   try { 
     let doc = await Cart.findOne({customer: req.body.customer, active:true})
-    console.log(doc,'doc')
-    console.log(req.body.cart)
     let exist = false
 
     if (!doc) {
-    // console.log('req........',req.body)
       let doc = await Cart.create(req.body)
       res.send(doc)
       return;
@@ -81,7 +78,6 @@ exports.quantityChange = async function (req, res) {
 exports.setActiveFalse = async function (udf5) {
   try {
     let doc = await Cart.findOne({_id: udf5})
-    console.log(doc)
     doc.active = false
     await doc.save();
   } catch (error) {

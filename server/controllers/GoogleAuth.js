@@ -31,7 +31,6 @@ module.exports = {
       const newUser = await User.create(data);
       const token = await UserServices.createToken(newUser._id)
       const cart = await Cart.create({customer:newUser._id, cart:[]})
-      console.log('length reg',cart.cart.length)
 
       return {
         token,
@@ -65,13 +64,11 @@ module.exports = {
       });
       const payload = ticket.getPayload();
       // const userid = payload['sub'];
-      // console.log(payload.email_verified) // true
       const userDoc = await User.findOne({
         email: payload.email
       });
       let doc = await Cart.findOne({customer: userDoc._id, active:true})
       doc = await ProductControllers.getCartItems(doc.cart)
-      // console.log('length login',cart.cart.length)
 
       if(!userDoc){
         return res.status(403).send({

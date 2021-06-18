@@ -163,7 +163,6 @@
     },
     async mounted() {
       this.collectionKeys = (await CollectionServices.all()).data
-      console.log(this.collectionKeys, 'mounted')
     }
   }
 </script>

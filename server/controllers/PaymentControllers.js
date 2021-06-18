@@ -10,10 +10,8 @@ const TransactionControllers = require('./TransactionControllers')
 module.exports = {
   async txnid (req, res) {
     try {
-      console.log(req.params.id)
       const doc = await Cart.findOne({customer: req.params.id, active:true})
       const txnid =  crypto.randomBytes(8).toString('hex');
-      console.log(doc)
       res.send({txnid, udf5:doc._id})
     } catch (err) {
       res.status(400).send({
@@ -24,15 +22,12 @@ module.exports = {
   async hash (req, res) {
     try{
       const data = req.body;
-      console.log(data)
       let cryp = crypto.createHash('sha512')
       //   let firstname = data.name.substr(0,data.name.firstIndexof(' '));
       const text = key+'|'+data.txnid+'|'+data.amount+'|'+data.productInfo+'|'+data.firstname+'|'+data.email+'|||||'+data.udf5+'||||||'+salt;
       // let hash = CryptoJS.SHA512(text).toString(CryptoJS.enc.Hex);
-      console.log(text)
       cryp.update(text)
       const hash = cryp.digest('hex');
-      console.log(hash)
       res.send({hash, key})
     } catch (err){
       console.log(err)
@@ -116,7 +111,6 @@ module.exports = {
                 verified ="Yes";
               else
                 verified = "No";
-              // console.log(verified)
               await TransactionControllers.index({
                 mihpayid,
                 status,

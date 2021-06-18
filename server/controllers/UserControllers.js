@@ -41,11 +41,9 @@ module.exports = {
   },
   async indexPaginated (req, res) {
     try {
-      // let products = null
       const query = req.query.search 
       const page = req.query.page
       let searchObject = {};
-      // console.log('reached')
   
       if (query) {
         const re = new RegExp(`${query}.*`, "i");
@@ -59,7 +57,6 @@ module.exports = {
         page,
         limit: 6,
       });
-      // console.log(pData)
       res.json({success:true, data: pData})
     } catch (error) {
       return res.status(401).json({ success: false, message: `${error}` });
@@ -68,7 +65,6 @@ module.exports = {
   async user (req, res) {
     try {
       const users = await User.findOne({_id:req.params.id})
-      // console.log('users ',users)
       res.send(users)
     } catch (error) {
       res.status(400).send({
@@ -81,7 +77,6 @@ module.exports = {
       let user = await User.findOne({email})
       user.previousPurchase.push(id)
       await user.save();
-      console.log('user ',user)
     } catch (error) {
       res.status(400).send({
         error: 'Server error! Kindly retry after some time.'

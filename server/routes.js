@@ -17,8 +17,10 @@ module.exports = (app) => {
 
     app.post('/admin/product/create', store.array('imageFiles', 12),
     ProductControllers.upload)
-    app.get('/admin/product/:id', ProductControllers.edit)
+    app.get('/admin/product/:id', ProductControllers.get)
+    app.post('/admin/product/:id/edit', store.array('imageFiles', 12), ProductControllers.update)
     app.get('/admin/product', ProductControllers.indexPaginated)
+    app.delete('/admin/remove/img', ProductControllers.deleteImage)
 
     app.get('/admin/users', UserControllers.indexPaginated)
     app.get('/admin/users/:id', UserControllers.user)

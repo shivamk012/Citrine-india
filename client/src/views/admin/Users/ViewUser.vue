@@ -49,7 +49,6 @@ export default {
   async mounted () {
     const userId = this.$route.params.userId
     this.user = (await UserServices.user(userId)).data
-    console.log(this.$store.state.user.imageUrl)
   }
 }
 
