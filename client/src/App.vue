@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import PageHeader from './components/Header.vue';
+import PageHeader from './components/Header2.vue';
 import PageFooter from './components/Footer.vue';
 
 export default {
