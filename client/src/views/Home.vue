@@ -1,17 +1,37 @@
 <template>
-  <div class="home-collection">
+  <div class="home-collection" color="#F0F0F2">
     <!-- Testimolials -->
     <v-carousel
-      height="700"
+      height="900"
+      :vertical="true"
+      :vertical-delimiters="vertical-delimiters"
+      :reverse="true"
+      :cycle="true"
+      :interval="3000"
+      :progress="true"
     >
       <v-carousel-item
-        v-for="(item,i) in items"
+        v-for="i in 6"
         :key="i"
-        :src="item.src"
-        aspect-ratio="2.88"
-        reverse-transition="fade-transition"
-        transition="fade-transition"
-      ></v-carousel-item>
+      >
+        <v-row align="center">
+          <v-col md="6">
+            <v-card flat max-height="764px" max-width="720px">
+              <!-- <v-img id="x" class="rounded-lg" :src="items[i+1].src" width="280px" height="420px"></v-img> -->
+              <v-img id="top" aspect-ratio="1" class="rounded-circle" :src="items[i-1]" ></v-img>
+              <v-img id="x" aspect-ratio="0.95" class="rounded-lg" :src="items[i]"></v-img>
+              <v-img id="bottom" aspect-ratio="1" class="rounded-circle" :src="items[i+1]" ></v-img>
+            </v-card>
+            
+            <!-- <v-img id="x" class="rounded-lg" :src="items[i+1].src" width="280px" height="420px"></v-img> -->
+          </v-col>
+          <v-col md="6">
+            <h1 id="y">{{slides[i]}}</h1>
+            <!-- <h1 id="y">{{items[i+1].src}}</h1> -->
+            <!-- <h1 id="y">{{items[i+2]}}</h1> -->
+          </v-col>
+        </v-row>
+      </v-carousel-item>
     </v-carousel>
     <!-- Quote -->
     <p v-scrollanimation class="quote">
@@ -207,6 +227,8 @@
 </template>
 
 <script>
+  
+
 
   export default {
 
@@ -216,31 +238,16 @@
         transparent: 'rgba(255, 255, 255, 0)',
         icons: ['mdi-heart', 'mdi-share-variant', 'mdi-shop'],
         items: [
-          {
-            src: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
-          },
-          {
-            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/F8.jpeg',
-          },
-          {
-            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/F7.jpeg',
-          },
-          {
-            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/F5.jpeg',
-          },
-          {
-            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/F4.jpeg',
-          },
-          {
-            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/F3p.jpg',
-          },
-          {
-            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/F2.jpeg',
-          },
-          {
-            src: 'https://citrine-india-site.s3.ap-south-1.amazonaws.com/F1.jpeg',
-          },
+          'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
+          'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
+          'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
+          'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
+          'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
+          'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
+          'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
+          'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
         ],
+        slides: ["lorem ipsum", "Design", "Technology" , "Technology" , "Technology" , "Technology" , "Technology" , "Technology"],
       }
     },
     methods :{
@@ -300,5 +307,21 @@
 
   .show-btns {
     color: rgba(255, 255, 255, 1) !important;
+  }
+
+  #x{
+    margin-left: 284px;
+  }
+  #top{
+    margin-left: 284px;
+    margin-top : -270px;
+    margin-bottom: 32px;
+  }
+  #bottom{
+    margin-left: 284px;
+    margin-top: 50px;
+  }
+  #y{
+    margin-left: 144px;
   }
 </style>

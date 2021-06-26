@@ -72,7 +72,6 @@ export default {
     },
     async getUsers (page) {
       this.users = (await UserServices.index(this.sValue, page)).data.data
-    //   console.log(this.users)
       this.length = this.users.pages
     }
   },
@@ -81,7 +80,6 @@ export default {
       immediate: true,
       async handler (value) {
         this.sValue = value
-        // console.log('panel watch')
         this.getUsers(this.users.page)
       }
     }

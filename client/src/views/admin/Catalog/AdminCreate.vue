@@ -86,6 +86,7 @@
   import { validationMixin } from 'vuelidate'
   import { required, maxLength, email } from 'vuelidate/lib/validators'
   import CatalogServices from '../../../services/catalogServices'
+  import CollectionServices from '../../../services/collectionServices'
 
   export default {
     mixins: [validationMixin],
@@ -107,7 +108,7 @@
         'Men',
         'Women'
       ],
-      collectionKeys: ['foo', 'bar', 'fizz', 'buzz'],
+      collectionKeys: [],
       collectionValues: [],
       retail: 250,
       wholesale: 180,
@@ -146,6 +147,7 @@
           formData.append("imageFiles", element)
         });
         formData.append('payload', JSON.stringify(payload))
+        formData.append('newCollection', this.newCollection)
         const response = (await CatalogServices.save(formData)).data
         if (response.success) {
           this.loading = false
@@ -159,5 +161,8 @@
         this.select = null
       },
     },
+    async mounted() {
+      this.collectionKeys = (await CollectionServices.all()).data
+    }
   }
 </script>

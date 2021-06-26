@@ -14,7 +14,7 @@
                     readonly
                     name="udf5"
                     id="udf5"
-                    value="citrine-india-payment"
+                    v-model="udf5"
                     v-show="false"
                     ></v-text-field>
                 </v-col>
@@ -63,7 +63,7 @@
                     name="key"
                     id="key"
                     v-model="key"
-                    v-show="true"
+                    v-show="false"
                     ></v-text-field>
                 </v-col>
                 <v-col
@@ -237,14 +237,14 @@
 
 <script>
 import paymentServices from '../services/paymentServices'
-    // import Hashgenerator from '../services/hashgenerator'   
-    // import Paymentgateway from '../services/paymentgateway'
+   
 export default {
   data: () => ({
     orderId: null,
     key: null,
     hash: null,
     firstname: null,
+    udf5: null,
   }),
   computed:{
     contactInfo: function () {
@@ -265,28 +265,25 @@ export default {
     }
   },
   async mounted () {
-      this.orderId = (await paymentServices.txnid()).data
-      console.log(this.orderId)
-      let firstname = this.user.name.substr(0,this.user.name.indexOf(" "));
-      let payload = {
-        txnid: this.orderId,
-        amount: this.cartTotal.totalPrice,
-        productInfo: this.cart,
-        firstname,
-        email: this.user.email,
-        phone: this.contactInfo.phone,
-        udf5: 'citrine-india-payment', // particular to a payment
-        surl: "http://localhost:8081/paymentResponse",
-        furl: "http://localhost:8081/paymentResponse",
-        curl: "http://localhost:8081/paymentResponse",
-      }
-      console.log(payload)
-      const obj = (await paymentServices.hash(payload)).data;
-      this.hash = obj.hash
-      this.key = obj.key
-      this.firstname = firstname
-      console.log(payload, this.hash, this.key, this.firstname)
-      this.$store
+    const res = (await paymentServices.txnid(this.user._id)).data
+    this.udf5 = res.udf5
+    this.orderId = res.txnid
+    this.firstname = this.user.name.substr(0,this.user.name.indexOf(" "));
+    let payload = {
+    txnid: this.orderId,
+    amount: this.cartTotal.totalPrice,
+    productInfo: this.cart,
+    firstname: this.firstname,
+    email: this.user.email,
+    phone: this.contactInfo.phone,
+    udf5: this.udf5, // particular to a payment
+    surl: "http://localhost:8081/paymentResponse",
+    furl: "http://localhost:8081/paymentResponse",
+    curl: "http://localhost:8081/paymentResponse",
+    }
+    const obj = (await paymentServices.hash(payload)).data;
+    this.hash = obj.hash
+    this.key = obj.key
   },
   
 }

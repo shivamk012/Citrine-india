@@ -1,5 +1,6 @@
 require('dotenv').config();
 const multer = require('multer')
+const path = require('path')
 const fs = require('fs')
 const S3 = require('aws-sdk/clients/s3')
 
@@ -22,6 +23,7 @@ function uploadFile(files) {
     }
 
     resultArray.push(s3.upload(uploadParams).promise())
+    fs.unlinkSync(file.path); // Empty uplaod folder
     // console.log('single', result)
     
   })
@@ -32,6 +34,23 @@ function uploadFile(files) {
     })
     return images
   })
+}
+
+// deleteFile
+
+function deleteFile (Key) {
+  const params = {
+    Bucket: process.env.AWS_BUCKET_NAME, 
+    Key
+  };
+  s3.deleteObject(params, function(err, data) {
+    if (err) console.log(err, err.stack); // an error occurred
+    else     console.log(data);           // successful response
+    /*
+    data = {
+    }
+    */
+  });
 }
 
 
@@ -50,4 +69,4 @@ const storage =  multer.diskStorage({
 })
 
 store = multer({storage})
-module.exports = {store, uploadFile}
+module.exports = {store, uploadFile, deleteFile}

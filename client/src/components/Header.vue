@@ -4,7 +4,6 @@
       color="black"
       dark
       fixed
-      flat
       app
     >
       <v-toolbar-title 
@@ -20,7 +19,7 @@
         <v-btn
           
           v-if="!$store.state.isUserLoggedin"
-          depressed flat
+          depressed 
           color="black"
           class="white--text"
           @click="navigateTo({
@@ -31,7 +30,7 @@
         </v-btn>
 
         <v-btn
-          depressed flat
+          depressed 
           color="black"
           class="white--text"
           @click="navigateTo({
@@ -66,7 +65,7 @@
         >
           <template v-slot:activator="{ on }">
             <v-btn
-              depressed flat
+              depressed
               color="black"
               class="white--text"
               v-on="on"
@@ -166,9 +165,8 @@
         this.$router.push(route)
       },
       logout(){
+        this.$store.dispatch('logout')
         this.$router.push({name:'home'})
-        this.$store.dispatch('setToken', null)
-        this.$store.dispatch('setUser', null)
       }
     },
     data: () => ({
@@ -187,8 +185,6 @@
       '$store.state.cart': {
         immediate: true,
         async handler (value) {
-          console.log(this.$store.state.cart)
-          console.log(value)
           this.cartCount = value
         }
       }

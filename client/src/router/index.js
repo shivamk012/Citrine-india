@@ -13,6 +13,9 @@ import admin from "./admin"
 import Cart from '../views/Cart.vue'
 import Checkout from '../views/Checkout.vue'
 import PayResponse from '../views/paymentResponse' 
+import Contactinformation from '../views/contactinformation' 
+import Cart2 from '../views/cart2' 
+import Aboutus from '../views/aboutus' 
 
 Vue.use(VueRouter)
 
@@ -63,7 +66,8 @@ Vue.use(VueRouter)
     component: Cart
   },
   {
-    path:'/cart/:name/contact/checkout',
+    // path:'/cart/:name/contact/checkout',
+    path:'/checkout',
     name : 'checkout',
     component: Checkout
   },
@@ -72,7 +76,21 @@ Vue.use(VueRouter)
     name : 'payResponse',
     component: PayResponse
   },
-
+  {
+    path:'/contactinformation',
+    name : 'contactinformation',
+    component: Contactinformation
+  },
+  {
+    path:'/newcart',
+    name : 'newcart',
+    component: Cart2
+  },
+  {
+    path:'/aboutus',
+    name : 'aboutus',
+    component: Aboutus
+  },
   ...admin
 //   {
 //     path: '/songs/create',

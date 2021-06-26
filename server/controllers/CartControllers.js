@@ -3,21 +3,29 @@ const Cart = require('../models/Cart')
 
 exports.post = async function (req, res) {
   try { 
-    let doc = await Cart.findOne({customer: req.body.customer})
-//   console.log(doc,'doc')
+    let doc = await Cart.findOne({customer: req.body.customer, active:true})
+    let exist = false
 
     if (!doc) {
-    // console.log('req........',req.body)
-    let doc = await Cart.create(req.body)
-    res.send(doc)
+      let doc = await Cart.create(req.body)
+      res.send(doc)
+      return;
     }
-    doc.cart.forEach(element => {
-      if (element.productId === req.body.cart) {
-        res.send({message:'Product alerady in the cart'})
-      }
-    });
+    if (doc.cart !== []) {
+      doc.cart = doc.cart.map(item => {
+        if (item.productId === req.body.cart.productId) {
+          item.quantity += 1
+          exist = true
+        }
+        return item
+      })
+    }
 
-    doc.cart.push(req.body.cart)
+    if (!exist) {
+      doc.cart.push(req.body.cart)
+      exist = false
+    }
+
     await doc.save();
 //   await UserControllers.addCart(doc)
     res.send(doc)
@@ -35,21 +43,59 @@ exports.delete = async function (req, res) {
   try { 
     const userId = req.params.userId;
     const productId = req.params.productId
-    console.log(userId, productId)
-    let doc = await Cart.findOne({customer:userId});
-    console.log('find', doc)
+    let doc = await Cart.findOne({customer:userId, active:true});
     doc.cart = doc.cart.filter(item => {
-      console.log(item)
       return item.productId != productId
     })
-    console.log('cart', doc.cart)
     await doc.save();
-    console.log('doc', doc)
   } catch (error) {
     console.log(error)
     res.status(400).send({
-    error: 'Server error! Kindly retry after some time.',
-    addedToCart: false
+      error: 'Server error! Kindly retry after some time.',
+      addedToCart: false
     })
+  }
+}
+
+exports.quantityChange = async function (req, res) {
+  try {
+    let doc = await Cart.findOne({customer: req.body.customer, active:true})
+    doc.cart = doc.cart.map(item => {
+      if (item.productId === req.body.productId) {
+        item.quantity = req.body.quantity
+      }
+      return item
+    })
+    await doc.save();
+  } catch (error) {
+    res.status(400).send({
+      error: 'Server error! Kindly retry after some time.',
+      addedToCart: false
+    })
+  }
+}
+
+exports.setActiveFalse = async function (udf5) {
+  try {
+    let doc = await Cart.findOne({_id: udf5})
+    doc.active = false
+    await doc.save();
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+exports.isActive = async function (req, res) {
+  try {
+    let doc = await Cart.find({customer: req.params.id});
+    let activeCart = false;
+    doc.forEach(item => {
+      if (item.active) {
+        activeCart = true
+      }
+    })
+    res.send({active: activeCart})
+  } catch (error) {
+    console.log(error)
   }
 }

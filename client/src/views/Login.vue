@@ -61,12 +61,13 @@ export default {
         .signIn()
         .then(async (GoogleUser) => {
           // on success do something
-          console.log('GoogleUser', GoogleUser)
           const id_token = GoogleUser.getAuthResponse().id_token;
           const response = (await AuthenticationServices.login(id_token)).data
           this.$store.dispatch('setToken', response.token)
           this.$store.dispatch('setUser', response.user)
-          window.history.go(-1);
+          this.$store.dispatch('setCart', response.cart)
+          // window.history.go(-1); 
+          this.navigateTo({name:'home'})
         })
         .catch(error => {
           console.log('error', error)

@@ -61,7 +61,6 @@ export default {
         .signIn()
         .then(async (GoogleUser) => {
           // on success do something
-          console.log('GoogleUser', GoogleUser)
           const id_token = GoogleUser.getAuthResponse().id_token;
           const response = (await AuthenticationServices.register(id_token)).data;
           this.$store.dispatch('setToken', response.token)

@@ -36,13 +36,28 @@
       label="New collection"
     ></v-text-field>
     <v-select
-      v-model="product.collections"
+      v-model="collectionValues"
       :items="collectionKeys"
       attach
       chips
       label="Existing Collections"
       multiple
     ></v-select>
+
+    <div
+      class="d-flex flex-row"
+      v-for="(img, i) in product.image"
+      :key="i"
+    >
+      <v-img
+        :src="img"
+        max-height="150"
+        max-width="250"
+      ></v-img>
+      <v-btn
+        @click="remove(img)"
+      >Remove</v-btn>
+    </div>
 
     <div>
       <v-file-input
@@ -91,6 +106,7 @@
   import { validationMixin } from 'vuelidate'
   import { required, maxLength, email } from 'vuelidate/lib/validators'
   import CatalogServices from '../../../services/catalogServices'
+  import CollectionServices from '../../../services/collectionServices'
 
   export default {
     mixins: [validationMixin],
@@ -103,6 +119,7 @@
 
     data: () => ({
       loading:false,
+      removedImage: null,
       product:{
         name: null,
         description: null,
@@ -111,6 +128,7 @@
         retailPrice: null,
         wholesalePrice: null,
         productCode: null,
+        image:[]
       },
       newCollection: '',
       items: [
@@ -118,8 +136,8 @@
         'Men',
         'Women'
       ],
-      collectionKeys: ['foo', 'bar', 'fizz', 'buzz'],
-      
+      collectionKeys: [],
+      collectionValues: [],
       files:[],
     }),
 
@@ -134,10 +152,18 @@
     },
     async mounted(){
       const productId = this.$route.params.productId
-      this.product = (await CatalogServices.edit(productId)).data;
+      this.product = (await CatalogServices.get(productId)).data;
+      this.collectionValues = this.product.collections
+      this.collectionKeys = (await CollectionServices.all()).data
     },
     methods: {
       async update () {
+        if (this.removedImage) {
+          let key = this.removedImage.map(item => {
+            return item.substr(item.lastIndexOf('/')+1, item.length)
+          })
+          await CatalogServices.removeImage(key)
+        }
         this.loading = true
         this.collectionValues = [
           ...this.collectionValues,
@@ -150,14 +176,15 @@
           description: this.desc,
           retailPrice: this.retail,
           wholesalePrice: this.wholesale,
-          productCode: this.productCode
+          productCode: this.productCode,
+          image: this.product.image
         }
         const formData = new FormData();
         this.files.forEach(element => {
           formData.append("imageFiles", element)
         });
         formData.append('payload', JSON.stringify(payload))
-        const response = (await CatalogServices.update(formData)).data
+        const response = (await CatalogServices.update(formData, this.$route.params.productId)).data
         if (response.success) {
           this.loading = false
           window.location.reload();
@@ -169,6 +196,10 @@
         this.email = ''
         this.select = null
       },
+      async remove(img) {
+        this.product.image.splice(this.product.image.indexOf(img),1)
+        this.removedImage.push(img)
+      }
     },
   }
 </script>

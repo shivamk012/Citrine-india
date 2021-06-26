@@ -16,10 +16,18 @@ export default{
       }
     })
   },
-  edit (id) {
+  get (id) {
     return Api().get(`admin/product/${id}`)
   },
   productAndRelated (pname) {
     return Api().get(`product/${pname}`)
+  },
+  update (credentials, id) {
+    return Api().post(`admin/product/${id}/edit`, credentials, { headers: {
+      "Content-Type": "multipart/form-data"
+    }})
+  },
+  removeImage (keys) {
+    return Api().delete('admin/remove/img', keys)
   }
 }

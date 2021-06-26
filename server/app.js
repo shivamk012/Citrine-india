@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 // const authRouter = require('./routes/auth')
 
 const app = express();
+// const DB = 'mongodb+srv://admin:admin12345@testdep.vins4.mongodb.net/Test-Citrine?retryWrites=true&w=majority'
 
 // for parsing application/json
 app.use(cors())

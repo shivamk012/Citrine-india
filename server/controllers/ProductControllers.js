@@ -1,6 +1,7 @@
 // const Uploads = require('../models/upload')
-const { uploadFile } = require('../middleware/multer');
+const { uploadFile, deleteFile } = require('../middleware/multer');
 const Products = require('../models/Products');
+const CollectionControllers = require('./CollectionControllers')
 // const fs = require('fs');
 // const { resolveSoa } = require('dns');
 
@@ -10,11 +11,10 @@ exports.upload = async function (req, res) {
     let data = JSON.parse((JSON.parse(JSON.stringify(req.body))).payload) // find another way
     const result = await uploadFile(files)
     data.image = result
-    // console.log('data')
-    // console.log(data)
     await Products.create(data)
-    console.log('created')
-    res.json({success:true})
+    const { _id, collections } = await Products.findOne({ name: data.name });
+    await CollectionControllers.addProduct({ _id, collections })
+    res.json({ success: true })
   } catch (error) {
     return res.status(401).json({ success: false, message: `${error}` });
   }
@@ -22,16 +22,15 @@ exports.upload = async function (req, res) {
 
 exports.indexPaginated = async function (req, res) {
   try {
-    const query = req.query.search 
+    const query = req.query.search
     const page = req.query.page
     let searchObject = {};
-    // console.log('reached')
 
     if (query) {
       const re = new RegExp(`${query}.*`, "i");
       re.ignoreCase = true;
       searchObject = {
-        $or: [{ name: re }, { collections: re }, { category:re }],
+        $or: [{ name: re }, { collections: re }, { category: re }],
       };
     }
 
@@ -39,17 +38,15 @@ exports.indexPaginated = async function (req, res) {
       page,
       limit: 6,
     });
-    // console.log(pData)
-    res.json({success:true, data: pData})
+    res.json({ success: true, data: pData })
   } catch (error) {
     return res.status(401).json({ success: false, message: `${error}` });
   }
 }
 
-exports.edit = async function (req, res) {
+exports.get = async function (req, res) {
   try {
-    const product = await Products.findOne({_id:req.params.id})
-    console.log(product)
+    const product = await Products.findOne({ _id: req.params.id })
     res.send(product)
   } catch (error) {
     res.status(400).send({
@@ -60,12 +57,59 @@ exports.edit = async function (req, res) {
 
 exports.productAndRelated = async function (req, res) {
   try {
-    const product = await Products.findOne({name:req.params.pname})
-    console.log(product)
+    const product = await Products.findOne({ name: req.params.pname })
     res.send(product)
   } catch (error) {
     res.status(400).send({
       error: 'Server error! Kindly retry after some time.'
     })
+  }
+}
+
+exports.getCartItems = async function (cartArray) {
+  try {
+    const cartIds = cartArray.map(item => {
+      return item.productId
+    })
+    let doc = await Products.find({ _id: { $in: cartIds } });
+    doc = doc.map(product => {
+      let quantity = 1;
+      cartArray.forEach(element => {
+        if (element.productId == product._id) {
+          quantity = element.quantity
+        }
+      })
+      return {product, quantity}
+    })
+    return doc
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+exports.update = async function (req, res) {
+  try {
+    const files = req.files;
+    let data = JSON.parse((JSON.parse(JSON.stringify(req.body))).payload) // find another way
+    const result = await uploadFile(files)
+    result.forEach(item => {
+      data.image.push(item)
+    })
+    const { _id, collections } = await Products.findOneAndUpdate({_id: req.params.id}, data)
+    await CollectionControllers.addProduct({ _id, collections })
+    res.json({ success: true })
+  } catch (error) {
+    return res.status(401).json({ success: false, message: `${error}` });
+  }
+}
+
+exports.deleteImage = function (req, res) {
+  try {
+    const keys = req.body.keys;
+    keys.forEach(async key => {
+      await deleteFile(key)
+    })
+  } catch (error) {
+    return res.status(401).json({ success: false, message: `${error}` });
   }
 }

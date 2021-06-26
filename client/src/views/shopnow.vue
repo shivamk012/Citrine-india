@@ -119,8 +119,6 @@ export default {
         this.$router.push({name:'login'})
       }
 
-      console.log('button pressed shopnow')
-
       this.$store.dispatch('addToCart', {
         product: doc,
         quantity: 1
@@ -130,8 +128,8 @@ export default {
         customer: this.$store.state.user._id,
         cart:{
           productId: doc._id,
-          quantity: 1
-        }
+          quantity: 1,
+        },
       })
     }
   },

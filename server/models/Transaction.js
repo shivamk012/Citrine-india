@@ -1,18 +1,23 @@
 const { model, Schema } = require("mongoose");
-const mongoosePaginate = require("mongoose-paginate")
+// const mongoosePaginate = require("mongoose-paginate")
 
 const transactionSchema = new Schema({
-    name:{type:String, required:true, unique:true},
-    productCode:{type:String, required:true, unique:true},
-    category:{type:String, enum:['Kids', 'Men', 'Women']},
-    collections: [{type:String}],
-    description: String,
-    retailPrice: Number,
-    wholesalePrice: Number,
-    image: [{type:String}],// url of image
+    verified: String,
+    mihpayid: String,
+    status: String,
+    udf5: String,
+    mode: String,
+    txnid: String,
+    amount: String,
+    address1: String,
+    address2: String,
+    city: String,
+    state: String,
+    pincode: String,
+    email: String
 })
 
 // transactionSchema.plugin(mongoosePaginate)
 
-const transaction = model("Transaction", transactionSchema);
-module.exports = transaction
+const Transaction = model("Transaction", transactionSchema);
+module.exports = Transaction
