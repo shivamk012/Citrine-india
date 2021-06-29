@@ -15,7 +15,8 @@ import Checkout from '../views/Checkout.vue'
 import PayResponse from '../views/paymentResponse' 
 import Contactinformation from '../views/contactinformation' 
 import Cart2 from '../views/cart2' 
-import Aboutus from '../views/aboutus' 
+import Aboutus from '../views/aboutus'
+import BonkersPage from '../views/bonkerspage'
 
 Vue.use(VueRouter)
 
@@ -90,6 +91,11 @@ Vue.use(VueRouter)
     path:'/aboutus',
     name : 'aboutus',
     component: Aboutus
+  },
+  {
+    path:'/bonkerspage',
+    name : 'bonkerspage',
+    component: BonkersPage
   },
   ...admin
 //   {

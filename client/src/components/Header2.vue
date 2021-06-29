@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar app flat hide-on-scroll height="105px">
+    <v-app-bar color="transparent" app flat hide-on-scroll height="105px">
       <v-toolbar-title  id="title">Citrine-India</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-menu
