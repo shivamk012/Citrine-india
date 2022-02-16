@@ -1,0 +1,137 @@
+[
+  {
+    "productCode": "CC3",
+    "name": "Bloom tassel Cuff",
+    "description": "Coral and mother of pearl handcuff in brass metal with 18k gold plating",
+    "retailPrice": 2000,
+    "wholesalePrice": 2000,
+    "category": "Handcuffs",
+    "collections": []
+  },
+  {
+    "productCode": "CC2",
+    "name": "Opal bracelet",
+    "description": "Turquoise handcuff in brass metal with 18k gold plating",
+    "retailPrice": 1300,
+    "wholesalePrice": 1300,
+    "category": "Handcuffs",
+    "collections": []
+  },
+  {
+    "productCode": "CC8",
+    "name": "Carved blue handcuff",
+    "description": "Blue carved stone in brass metal with 18k gold plating",
+    "retailPrice": 1300,
+    "wholesalePrice": 1300,
+    "category": "Handcuffs",
+    "collections": []
+  },
+  {
+    "productCode": "CC7",
+    "name": "Carved Red handcuff",
+    "description": "Red carved stone handcuff in brass metal with 18k gold plating",
+    "retailPrice": 1300,
+    "wholesalePrice": 1300,
+    "category": "Handcuffs",
+    "collections": []
+  },
+  {
+    "productCode": "CC6",
+    "name": "Tube light hangings handcuff",
+    "description": "Red tube light hanging handcuff in brass metal with 18K gold plating",
+    "retailPrice": 1000,
+    "wholesalePrice": 1000,
+    "category": "Handcuffs",
+    "collections": []
+  },
+  {
+    "productCode": "CC4",
+    "name": "Hand of luck handcuff",
+    "description": "Red coral handcuff in brass metal with 18k gold plating",
+    "retailPrice": 700,
+    "wholesalePrice": 700,
+    "category": "Handcuffs",
+    "collections": []
+  },
+  {
+    "productCode": "CC1",
+    "name": "Touch of red Handcuff",
+    "description": "Red coral stone handcuff in brass metal with 18k gold plating",
+    "retailPrice": 1800,
+    "wholesalePrice": 1800,
+    "category": "Handcuffs",
+    "collections": []
+  },
+  {
+    "productCode": "CC9",
+    "name": "Hint of Citrine",
+    "description": "Citrine Rough stone handcuff in brass metal with 18k gold plating",
+    "retailPrice": 1100,
+    "wholesalePrice": 1100,
+    "category": "Handcuffs",
+    "collections": []
+  },
+  {
+    "productCode": "CC10",
+    "name": "Mosaic glass handcuff",
+    "description": "Glass handcuff in brass metal with 18k gold plating",
+    "retailPrice": 1500,
+    "wholesalePrice": 1500,
+    "category": "Handcuffs",
+    "collections": []
+  },
+  {
+    "productCode": "CC11",
+    "name": "Purple and blue carvings handcuff",
+    "description": "Purple and green carved stone handcuff in brass metal with 18k gold plating",
+    "retailPrice": 1300,
+    "wholesalePrice": 1300,
+    "category": "Handcuffs",
+    "collections": []
+  },
+  {
+    "productCode": "CC12",
+    "name": "Touch of blue in purple",
+    "description": "Purple and green carved stone handcuff in brass metal with 18k gold plating",
+    "retailPrice": 1300,
+    "wholesalePrice": 1300,
+    "category": "Handcuffs",
+    "collections": []
+  },
+  {
+    "productCode": "CC13",
+    "name": "Hint of Agates",
+    "description": "Purple agate stone handcuff in brass metal with 18k gold plating",
+    "retailPrice": 1000,
+    "wholesalePrice": 1000,
+    "category": "Handcuffs",
+    "collections": []
+  },
+  {
+    "productCode": "CC14",
+    "name": "Oriental Bloom handcuff",
+    "description": "Amethyst, citrine and blue topaz handcuff in brass metal with 18k gold plating",
+    "retailPrice": 1100,
+    "wholesalePrice": 1100,
+    "category": "Handcuffs",
+    "collections": []
+  },
+  {
+    "productCode": "CC15",
+    "name": "Timeless tide handcuff",
+    "description": "Coral and baroque pearl handcuff in brass metal with 18k gold plating",
+    "retailPrice": 1300,
+    "wholesalePrice": 1300,
+    "category": "Handcuffs",
+    "collections": []
+  },
+  {
+    "productCode": "CC16",
+    "name": "Look within Handcuff",
+    "description": "Blue onyx handcuff",
+    "retailPrice": 900,
+    "wholesalePrice": 900,
+    "category": "Handcuffs",
+    "collections": []
+  }
+]

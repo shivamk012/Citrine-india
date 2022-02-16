@@ -1,0 +1,45 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='preconnect' href='https://fonts.gstatic.com')
+  link(href='https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Source+Sans+Pro&family=Ubuntu&display=swap' rel='stylesheet')
+  link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous')
+  link(rel='stylesheet' href='/styles/styles.css')
+  link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.15.3/css/all.css' integrity='sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk' crossorigin='anonymous')
+  script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js' integrity='sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1' crossorigin='anonymous')
+  script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js' integrity='sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM' crossorigin='anonymous')
+  title Payment
+section#Navigation
+  nav.navbar.navbar-expand-lg.navbar-light
+    a.navbar-brand.logo(href='https://www.citrineindia.in') CITRINE INDIA
+  nav.navbar.navbar-expand-lg.navbar-light
+    ul.navbar-nav.ml-auto.mr-auto
+      li.nav-item
+        a.nav-link.nav-item-home(href='https://www.citrineindia.in') HOME
+      li.nav-item
+        a.nav-link(href='https://www.citrineindia.in') COLLECTIONS
+      li.nav-item
+        a.nav-link(href='https://www.citrineindia.in') JEWELERY
+section#main
+  .text-center
+    .card.text-center.mx-auto.border.border-light(style='width: 30rem;height:32rem;')
+      if (Verified === "Yes")
+        i.mt-5.mb-5.card-img-top.text-success.fa.fa-check-circle.fa-10x(aria-hidden="true")
+        .card-body
+          h1.card-title.text-success.mt-5.mb-5 Payment Successful
+          h5.card-text.font-weight-normal.d-inline-block(style='color: #404F5E;') We received your purchase request . We'll be in touch shortly!.
+      else 
+        i.mt-5.mb-5.card-img-top.text-danger.fa.fa-exclamation-triangle.fa-10x(aria-hidden="true")
+        .card-body
+          h1.card-title.text-danger.mt-5.mb-5 Payment Unsuccessful
+          h5.card-text.font-weight-normal.d-inline-block(style='color: #404F5E;') Something went wrong while processing your payment .
+section#Footer
+  div
+    p.copyright © 2021, Citrine India by BONKERS
+    a(href='')
+      i.footer-icon.fab.fa-facebook.footer-icon
+    a(href='')
+      i.footer-icon.fab.fa-instagram.footer-icon
