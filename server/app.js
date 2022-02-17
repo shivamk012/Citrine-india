@@ -29,10 +29,10 @@ require('./routes')(app)
 // Handle production
 if (process.env.NODE_ENV === 'production') {
   // static folder
-  app.use(express.static(__dirname + '/public/'));
+  app.use(express.static(__dirname + '../../client/dist'));
 
   // handle SPA
-  app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+  app.get(/.*/, (req, res) => res.sendFile(__dirname + '../../client/dist/index.html'));
   
 }
 mongoose.connect('mongodb+srv://shivam:shivam@cluster0.4epaz.mongodb.net/Ecommerce?retryWrites=true&w=majority', {
