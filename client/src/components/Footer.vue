@@ -55,7 +55,7 @@
               <v-icon id="changeimagesize">mdi-map-marker</v-icon>
             </v-col>
             <v-col cols="11" class="ml-n5">
-              <v-col ><p id="changesize">7,Desh Bhushan Nagar, Delhi Bypass Road , Jaipur-302003</p></v-col>
+              <v-col ><p id="changesize">abc nagar , Indore , Madhyapradesh</p></v-col>
             </v-col>
           </v-row>
           <v-row class="justify-center mb-10">
