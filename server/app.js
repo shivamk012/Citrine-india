@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/images", express.static("./utils/images"));
 app.use("/styles", express.static("./utils/css"));
 app.use(express.static(path.join(__dirname, '../../client/dist')))
-
+app.get(/.*/, (req, res) => res.sendFile(__dirname + '../../client/dist/index.html'));
 app.set('view engine', 'jade');
 
 
@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(__dirname + '../../client/dist'));
 
   // handle SPA
-  app.get(/.*/, (req, res) => res.sendFile(__dirname + '../../client/dist/index.html'));
+  
   
 }
 mongoose.connect('mongodb+srv://shivam:shivam@cluster0.4epaz.mongodb.net/Ecommerce?retryWrites=true&w=majority', {
