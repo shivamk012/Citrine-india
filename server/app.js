@@ -18,8 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 // Get the Javascript in the browser
 app.use("/images", express.static("./utils/images"));
 app.use("/styles", express.static("./utils/css"));
-app.use(express.static(path.join(__dirname, '../../client/dist')))
-app.get(/.*/, (req, res) => res.sendFile(__dirname + '../../client/dist/index.html'));
+app.use(express.static(path.join(__dirname, '../client/dist')))
+app.get(/.*/, (req, res) => res.sendFile(__dirname + '../client/dist/index.html'));
 app.set('view engine', 'jade');
 
 
