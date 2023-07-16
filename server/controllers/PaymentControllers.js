@@ -3,9 +3,9 @@ require('dotenv').config();
 var CryptoJS = require("crypto-js");
 const reqpost = require('request')
 // const key = process.env.MERCHANT_KEY ;
-const key = "Qarkz4D0";
+const key = process.env.payment_key;
 // const salt = process.env.MERCHANT_SALT ;
-const salt = "kbS4ld0K23";
+const salt = process.env.payment_salt;
 const Cart = require('../models/Cart')
 const User = require('../models/Users')
 const ProductControllers = require('./ProductControllers')
